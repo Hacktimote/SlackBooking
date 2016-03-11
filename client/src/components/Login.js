@@ -47,7 +47,6 @@ export default class Login extends Component {
             <TextInput
               style={login.textInput}
               placeholder={'EMAIL'}
-              placeholderTextColor={'rgba(255, 255, 255, 0.7'}
               onChangeText={(value) => this.setState({value})}
               value={this.state.value}/>
           </View>
@@ -56,10 +55,11 @@ export default class Login extends Component {
             <TextInput
               style={login.textInput}
               placeholder={'PASSWORD'}
-              secureTextEntry={true}
-              placeholderTextColor={'rgba(255, 255, 255, 0.7'}/>
+              secureTextEntry={true}/>
           </View>
-          <ColoredRaisedButton/>
+          <View style={{padding:20}}>
+            <ColoredRaisedButton/>
+          </View>
         </View>
       </View>
     );

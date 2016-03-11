@@ -14,9 +14,6 @@ import React, {
 
 
 import RootRouter from './src/components/RootRouter';
-//import Home from './src/components/Home';
-
-StatusBarIOS.setStyle('light-content');
 
 class SlackBooking extends Component {
   render() {
@@ -26,6 +23,7 @@ class SlackBooking extends Component {
   }
 }
 
+AppRegistry.registerComponent('SlackBooking', () => SlackBooking);
 
 //class SlackBooking extends Component {
 //  render() {
@@ -65,4 +63,3 @@ class SlackBooking extends Component {
 //  },
 //});
 
-AppRegistry.registerComponent('SlackBooking', () => SlackBooking);
