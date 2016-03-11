@@ -23,6 +23,8 @@
   },
   "homepage": "https://github.com/R0muald/SlackBooking#readme",
   "dependencies": {
+    "good": "^6.6.0",
+    "good-console": "^5.3.1",
     "hapi": "^13.2.1"
   },
   "devDependencies": {}
