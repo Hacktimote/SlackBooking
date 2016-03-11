@@ -1,0 +1,29 @@
+{
+  "name": "slackbooking-server",
+  "version": "0.0.1",
+  "description": "Server side of Slack Booking",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/R0muald/SlackBooking.git"
+  },
+  "keywords": [
+    "slack",
+    "estimote",
+    "beacon",
+    "booking"
+  ],
+  "author": "d0nkeyBOB",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/R0muald/SlackBooking/issues"
+  },
+  "homepage": "https://github.com/R0muald/SlackBooking#readme",
+  "dependencies": {
+    "hapi": "^13.2.1"
+  },
+  "devDependencies": {}
+}
