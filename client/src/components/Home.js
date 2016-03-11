@@ -3,46 +3,39 @@
  */
 'use strict';
 
-import React, {Component, Text, View, ScrollView} from 'react-native';
+import React, {Component, Text, View, ScrollView, Image} from 'react-native';
 import styles from '../styles/style';
 import NavigationBar from 'react-native-navbar';
+import home from '../styles/home';
 import {Actions} from 'react-native-router-flux';
+import Card from './Card';
+import Variable from '../styles/variable';
+
 
 export default class Home extends Component {
 
   render() {
 
     const rightButtonConfig = {
-      title: 'Next',
-      handler: () => alert('hello!'),
+      title: 'Logout',
+      handler: () => Actions.login(),
     };
 
     const titleConfig = {
-      title: 'Hello, world',
+      title: 'My meeting rooms',
     };
 
-    return(
+    return (
       <View style={home.color}>
         <NavigationBar
+          //style={{backgroundColor:Variable.brandNavbar}}
           title={titleConfig}
-          rightButton={rightButtonConfig} />
-        <ScrollView style={{backgroundColor: 'transparent'}}>
-          <View style={home.listContainer}>
-            <Text style={home.list}>
-              Welcome!
-            </Text>
-          </View>
-          <View style={home.listContainer}>
-            <Text style={home.list}>
-              Native Starter Free version!
-            </Text>
-          </View>
-          <View style={home.breakline}>
-          </View>
-          <View>
-            <ButtonRounded
-              onPress={Actions.login}
-              text="Logout" />
+          rightButton={rightButtonConfig}/>
+        <ScrollView style={styles.scrollView}>
+          <View style={styles.container}>
+            {/* Here the magic happens*/}
+            <Card />
+            <Card />
           </View>
         </ScrollView>
       </View>

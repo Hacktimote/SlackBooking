@@ -13,17 +13,17 @@ import React, {
 } from 'react-native';
 
 
-import RootRouter from './src/components/Home';
-StatusBarIOS.setStyle('light-content');
+import RootRouter from './src/components/RootRouter';
 
 class SlackBooking extends Component {
   render() {
     return (
-      <Home />
+      <RootRouter />
     );
   }
 }
 
+AppRegistry.registerComponent('SlackBooking', () => SlackBooking);
 
 //class SlackBooking extends Component {
 //  render() {
@@ -63,4 +63,3 @@ class SlackBooking extends Component {
 //  },
 //});
 
-AppRegistry.registerComponent('SlackBooking', () => SlackBooking);
