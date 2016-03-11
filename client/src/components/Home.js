@@ -9,6 +9,7 @@ import NavigationBar from 'react-native-navbar';
 import home from '../styles/home';
 import {Actions} from 'react-native-router-flux';
 import Card from './Card';
+import Variable from '../styles/variable';
 
 
 export default class Home extends Component {
@@ -27,6 +28,7 @@ export default class Home extends Component {
     return (
       <View style={home.color}>
         <NavigationBar
+          //style={{backgroundColor:Variable.brandNavbar}}
           title={titleConfig}
           rightButton={rightButtonConfig}/>
         <ScrollView style={styles.scrollView}>
