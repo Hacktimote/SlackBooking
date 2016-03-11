@@ -13,7 +13,9 @@ import React, {
 } from 'react-native';
 
 
-import RootRouter from './src/components/Home';
+//import RootRouter from './src/components/RootRouter';
+import Home from './src/components/Home';
+
 StatusBarIOS.setStyle('light-content');
 
 class SlackBooking extends Component {
