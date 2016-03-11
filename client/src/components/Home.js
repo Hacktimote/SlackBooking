@@ -17,8 +17,8 @@ export default class Home extends Component {
   render() {
 
     const rightButtonConfig = {
-      title: 'Login',
-      handler: () => alert('hello!'),
+      title: 'Logout',
+      handler: () => Actions.login(),
     };
 
     const titleConfig = {
