@@ -1,8 +1,11 @@
 /**
  * Created by franciosdelpech on 3/10/16.
  */
-var React = require('react-native');
-var {MKColor} = require('react-native-material-kit');
+
+import React from 'react-native';
+var MK = require('react-native-material-kit');
+
+import {MKButton,MKColor} from 'react-native-material-kit';
 
 var {
   AppRegistry,
@@ -11,6 +14,12 @@ var {
   Text,
   View,
   } = React;
+
+//customize the material design theme
+MK.setTheme({
+  primaryColor: MKColor.Amber,
+  accentColor: MKColor.Indigo
+});
 
 var styles = StyleSheet.create({
 
@@ -21,7 +30,7 @@ var styles = StyleSheet.create({
     flex: 1
   },
 
-  bg : {
+  bg: {
     backgroundColor: '#3B3738',
     flex: 1
   },
@@ -69,12 +78,12 @@ var styles = StyleSheet.create({
     backgroundColor: 'transparent',
     padding: 5,
     borderColor: '#eeeeee',
-    borderWidth:1,
+    borderWidth: 1,
     borderColor: 'transparent'
   },
 
   controlPanelText: {
-    color:'white',
+    color: 'white',
   },
 
   linkText: {
@@ -101,13 +110,13 @@ var styles = StyleSheet.create({
     fontSize: 20,
     textAlign: 'center',
     margin: 25,
-    color:'white',
-    fontWeight:'bold'
+    color: 'white',
+    fontWeight: 'bold'
   },
 
   sliderMetric: {
-    right:10,
-    width:30
+    right: 10,
+    width: 30
   },
 
   slider: {
@@ -120,10 +129,10 @@ var styles = StyleSheet.create({
     backgroundColor: 'white',
     padding: 10,
     borderColor: '#eeeeee',
-    borderWidth:1,
+    borderWidth: 1,
     borderBottomColor: '#aaaaaa',
-    marginRight:20,
-    marginLeft:20,
+    marginRight: 20,
+    marginLeft: 20,
     alignSelf: 'center',
     marginTop: 10
   },
@@ -132,10 +141,10 @@ var styles = StyleSheet.create({
     backgroundColor: 'white',
     padding: 10,
     borderColor: '#eeeeee',
-    borderWidth:1,
+    borderWidth: 1,
     borderBottomColor: '#aaaaaa',
-    marginRight:20,
-    marginLeft:20,
+    marginRight: 20,
+    marginLeft: 20,
     alignSelf: 'center',
     marginTop: 10
   },

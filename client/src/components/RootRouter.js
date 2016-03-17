@@ -5,7 +5,7 @@
 
 import React, {Component, Navigator, Text, View} from 'react-native';
 import {Router, Route, Schema} from 'react-native-router-flux';
-import EventEmitter from 'EventEmitter';
+//import EventEmitter from 'EventEmitter';
 import Home from './Home';
 import Login from './Login';
 import layout from '../styles/layout';

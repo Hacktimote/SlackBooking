@@ -5,21 +5,13 @@
 
 import React, {Component, TextInput, View, Image, Text} from 'react-native';
 import styles from '../styles/style';
-import login from '../styles/authentication';
+import login from '../styles/logins';
 import {Actions} from 'react-native-router-flux';
 
 import {
   MKButton,
   MKColor,
 } from  'react-native-material-kit';
-
-
-// customize the material design theme
-// MK.setTheme({
-//   primaryColor: MKColor.Teal,
-//   accentColor: MKColor.Purple,
-// });
-
 
 export default class Login extends Component {
 
@@ -28,36 +20,30 @@ export default class Login extends Component {
     this.state = {
       value: ''
     };
-
   }
 
   render() {
     const ColoredRaisedButton = MKButton.coloredButton()
-      .withText('LOGIN')
+      .withText('LOGIN WITH SLACK')
       .withOnPress(() => {
-        Actions.home({data:this.state.value });
+        Actions.home({data: this.state.value});
       })
       .build();
 
     return (
       <View style={login.color}>
+
+        <View style={{position:'absolute', flex:1}}>
+          <Text style={{flex: 1}}>Slack Booking</Text>
+        </View>
+        <View style={login.imageContainer}>
+          <Image
+            resizeMode="contain"
+            source={require('../img/estimote.png')}
+            style={login.canvas}/>
+        </View>
         <View style={login.bg}>
-          <View
-            style={{position:'relative',borderColor: 'white', borderWidth: 0.8, borderTopWidth: 0, borderRightWidth: 0, borderLeftWidth: 0, margin: 15, marginTop: 5,}}>
-            <TextInput
-              style={login.textInput}
-              placeholder={'EMAIL'}
-              onChangeText={(value) => this.setState({value})}
-              value={this.state.value}/>
-          </View>
-          <View
-            style={{position:'relative',borderColor: 'white', borderWidth: 0.8, borderTopWidth: 0, borderRightWidth: 0, borderLeftWidth: 0, margin: 15, marginTop: 5,}}>
-            <TextInput
-              style={login.textInput}
-              placeholder={'PASSWORD'}
-              secureTextEntry={true}/>
-          </View>
-          <View style={{padding:20}}>
+          <View style={{padding:20, borderRadius:10}}>
             <ColoredRaisedButton/>
           </View>
         </View>
