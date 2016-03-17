@@ -33,14 +33,14 @@ export default class Login extends Component {
     return (
       <View style={login.color}>
 
-        <View style={{position:'absolute', flex:1}}>
-          <Text style={{flex: 1}}>Slack Booking</Text>
-        </View>
-        <View style={login.imageContainer}>
-          <Image
-            resizeMode="contain"
-            source={require('../img/estimote.png')}
-            style={login.canvas}/>
+        <View style={{flex: 3, flexDirection: 'row'}}>
+
+          <View style={styles.container}>
+            <Image
+              resizeMode="contain"
+              source={require('../img/estimote.png')}
+              style={login.canvas}/>
+          </View>
         </View>
         <View style={login.bg}>
           <View style={{padding:20, borderRadius:10}}>

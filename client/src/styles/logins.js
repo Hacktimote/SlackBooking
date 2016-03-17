@@ -35,10 +35,10 @@ module.exports = StyleSheet.create({
     flexDirection: 'row'
   },
   canvas: {
-    position: 'absolute',
     top: 0,
     left: 0,
-    flex: 1
+    width: deviceWidth,
+    flex:1
   },
   background: {
     flex: 1,
