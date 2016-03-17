@@ -1,6 +1,7 @@
 'use strict';
 
 const Hapi = require('hapi');
+const Good = require('good');
 
 const server = new Hapi.Server();
 server.connection({
@@ -16,9 +17,27 @@ server.route({
     }
 })
 
-server.start((err) => {
+server.register({
+    register: Good,
+    options: {
+        reporters: [{
+            reporter: require('good-console'),
+            events: {
+                response: '*',
+                log: '*'
+            }
+
+        }]
+    }
+}, (err) => {
+
     if(err) {
         console.log(err);
     }
-    console.log('Server running at: ', server.info.uri);
-})
+    server.start((err) => {
+        if(err) {
+            console.log(err);
+        }
+        server.log('Server running at: ', server.info.uri);
+    });
+});
