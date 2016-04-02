@@ -21,7 +21,7 @@ const swagOptions = {
     };
 
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:4329/slacktimote');
+mongoose.connect('mongodb://localhost:27017/slacktimote');
 
 const RoomModel = require('./routes/rooms');
 
