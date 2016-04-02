@@ -25,7 +25,11 @@ exports.register = (server, options, next) => {
                     beacon_id: Joi.string().required(),
                     location: Joi.string().required(),
                     assets: Joi.array().items(Joi.string()),
-                    capacity: Joi.string().required()
+                    capacity: Joi.string().required(),
+                    status: Joi.object({
+                        name: Joi.string().required(),
+                        bookingId: Joi.string()
+                    })
                 }
             }
         },
@@ -155,6 +159,55 @@ exports.register = (server, options, next) => {
         handler: (request, reply) => {
             //Finding user for particular userID
             RoomModel.find({_id: request.params.id}, function (error, data) {
+                if (error) {
+                    reply({
+                        statusCode: 503,
+                        message: 'Failed to get data',
+                        data: error
+                    });
+                } else {
+                    if (data.length === 0) {
+                        reply({
+                            statusCode: 200,
+                            message: 'Room Not Found',
+                            data: data
+                        });
+                    } else {
+                        reply({
+                            statusCode: 200,
+                            message: 'Room Data Successfully Fetched',
+                            data: data
+                        });
+                    }
+                }
+            });
+        }
+    })
+
+    server.route({
+        method: 'PUT',
+        path: '/api/room/{id}',
+        config: {
+            tags: ['api'],
+            description: 'Update status for room',
+            notes: 'Update status for room',
+            validate: {
+                // Id is required field
+                params: {
+                    id: Joi.string().required()
+                },
+                payload: {
+                    // Both name and age are required fields
+                    status: Joi.object({
+                        name: Joi.string().required(),
+                        bookingId: Joi.string()
+                    })
+                }
+            }
+        },
+        handler: (request, reply) => {
+            //Finding user for particular userID
+            RoomModel.findOneAndUpdate({_id: request.params.id}, request.payload, function (error, data) {
                 if (error) {
                     reply({
                         statusCode: 503,

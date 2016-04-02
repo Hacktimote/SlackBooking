@@ -6,7 +6,8 @@ const RoomSchema = new Schema({
     beacon_id: String,
     location: String,
     assets: Array,
-    capacity: String
+    capacity: String,
+    status: Object
 });
 
 module.exports = mongoose.model('rooms', RoomSchema);
