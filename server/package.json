@@ -4,7 +4,8 @@
   "description": "Server side of Slack Booking",
   "main": "index.js",
   "scripts": {
-    "start": "node ./src/index.js"
+    "start": "forever start ./src/index.js",
+	"stop" : "forever stop ./src/index.js"
   },
   "repository": {
     "type": "git",
