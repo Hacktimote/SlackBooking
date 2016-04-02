@@ -180,13 +180,40 @@ exports.register = (server, options, next) => {
         }
     })
 
-    // server.route({
-    //     method: 'POST',
-    //     path: '/room/{id}',
-    //     handler: (req, reply) => {
-    //         reply('Booking room');
-    //     }
-    // })
+    server.route({
+        method: 'DELETE',
+        path: '/api/room/{id}',
+        config: {
+            tags: ['api'],
+            description: 'Remove room by id',
+            notes: 'Remove room by id',
+            validate: {
+                // Id is required field
+                params: {
+                    id: Joi.string().required()
+                }
+            }
+        },
+        handler: (request, reply) => {
+            //Finding user for particular userID
+            RoomModel.findOneAndRemove({_id: request.params.id}, function (error, data) {
+                if (error) {
+                    reply({
+                        statusCode: 503,
+                        message: 'Failed to remove room',
+                        data: error
+                    });
+                } else {
+
+                    reply({
+                        statusCode: 200,
+                        message: 'Room removed Successfully'
+                    });
+                }
+            });
+        }
+    })
+
     next();
 };
 
