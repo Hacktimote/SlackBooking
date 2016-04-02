@@ -23,6 +23,7 @@ exports.register = (server, options, next) => {
                     // Both name and age are required fields
                     name: Joi.string().required(),
                     beacon_id: Joi.string().required(),
+                    uuid: Joi.string().required(),
                     location: Joi.string().required(),
                     assets: Joi.array().items(Joi.string()),
                     capacity: Joi.string().required(),
@@ -200,7 +201,7 @@ exports.register = (server, options, next) => {
                     // Both name and age are required fields
                     status: Joi.object({
                         name: Joi.string().required(),
-                        bookingId: Joi.string()
+                        bookingId: Joi.string().allow('').optional()
                     })
                 }
             }
