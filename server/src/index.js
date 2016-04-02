@@ -2,12 +2,28 @@
 
 const Hapi = require('hapi');
 const Good = require('good');
+const Inert = require('inert');
+const Vision = require('vision');
+const HapiSwagger = require('hapi-swagger');
+const Pack = require('../package');
 
 const server = new Hapi.Server();
 server.connection({
     port: 3000,
     host: 'localhost'
 });
+
+const swagOptions = {
+    info: {
+            'title': 'Test API Documentation',
+            'version': Pack.version,
+        }
+    };
+
+const mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost:4329/slacktimote');
+
+const RoomModel = require('./routes/rooms');
 
 server.route({
     method: 'GET',
@@ -17,19 +33,31 @@ server.route({
     }
 })
 
-server.register({
-    register: Good,
-    options: {
-        reporters: [{
-            reporter: require('good-console'),
-            events: {
-                response: '*',
-                log: '*'
-            }
+server.register([
+    Inert,
+    Vision,
+    {
+        register: require('hapi-swagger'),
+        options: swagOptions
+    },
+    {
+        register: RoomModel,
+        options: {},
+    },
+    {
+        register: Good,
+        options: {
+            reporters: [{
+                reporter: require('good-console'),
+                events: {
+                    response: '*',
+                    log: '*'
+                }
 
-        }]
+            }]
+        }
     }
-}, (err) => {
+], (err) => {
 
     if(err) {
         console.log(err);

@@ -23,9 +23,18 @@
   },
   "homepage": "https://github.com/R0muald/SlackBooking#readme",
   "dependencies": {
+    "boom": "^3.1.2",
     "good": "^6.6.0",
     "good-console": "^5.3.1",
-    "hapi": "^13.2.1"
+    "hapi": "^13.2.2",
+    "hapi-swagger": "^4.3.1",
+    "inert": "^3.2.0",
+    "joi": "^8.0.5",
+    "lodash": "^4.7.0",
+    "mongoose": "^4.4.10",
+    "node-uuid": "^1.4.7",
+    "unirest": "^0.4.2",
+    "vision": "^4.0.1"
   },
   "devDependencies": {}
 }
