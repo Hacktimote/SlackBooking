@@ -28,7 +28,7 @@ exports.register = (server, options, next) => {
                     capacity: Joi.string().required(),
                     status: Joi.object({
                         name: Joi.string().required(),
-                        bookingId: Joi.string()
+                        bookingId: Joi.string().allow('').optional()
                     })
                 }
             }
