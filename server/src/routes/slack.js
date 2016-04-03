@@ -47,7 +47,7 @@ exports.register = (server, options, next) => {
         },
         path: '/api/slack',
         handler: (request, reply) => {
-            console.log(request.payload);
+            console.log(request);
             if (request.payload.token === config.slash_token) {
                 // Is the message format valid?
                 var command = validate(request.payload.text);
