@@ -9,7 +9,9 @@ const unirest = require('unirest');
 const _ = require('lodash');
 
 exports.register = (server, options, next) => {
-
+    var config = {
+        slash_token: 'wZjT5fyOXfeKCuMH05vm2Y3Z'
+    };
     server.route({
         method: 'POST',
         path: '/api/slack',
@@ -41,12 +43,11 @@ exports.register = (server, options, next) => {
         config: {
             tags: ['api'],
             description: 'Get all Bookings',
-            notes: 'Get all Bookings',
-            token: 'wZjT5fyOXfeKCuMH05vm2Y3Z'
+            notes: 'Get all Bookings'
         },
         path: '/api/slack',
         handler: (request, reply) => {
-            if (request.payload.token === config.token) {
+            if (request.payload.token === config.slash_token) {
                 // Is the message format valid?
                 var command = validate(request.payload.text);
                 if (command.isValid) {
