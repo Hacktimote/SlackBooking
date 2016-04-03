@@ -24,7 +24,7 @@ exports.register = (server, options, next) => {
                     // Both name and age are required fields
                     name: Joi.string().required(),
                     user_id: Joi.string().required(),
-                    reserved: Joi.date().required(),
+                    reserved: Joi.date().required()
                 }
             }
         },
@@ -78,64 +78,6 @@ exports.register = (server, options, next) => {
             });
         }
     })
-
-    server.route({
-        method: 'GET',
-        path: '/api/booking/beacon/{beaconId}',
-        config: {
-            tags: ['bookings'],
-            description: 'Get booking by Beacon Id',
-            notes: 'Get booking by Beacon Id',
-            validate: {
-                // Id is required field
-                params: {
-                    beaconId: Joi.string().required()
-                }
-            }
-        },
-        handler: (request, reply) => {
-            let booking = {}, local, estimote;
-            //Finding user for particular userID
-            RoomModel.find({beacon_id: request.params.beaconId}, function (error, data) {
-                if (error) {
-                    reply({
-                        statusCode: 503,
-                        message: 'Failed to get data',
-                        data: error
-                    });
-                } else {
-                    if (data.length === 0) {
-                        reply({
-                            statusCode: 200,
-                            message: 'Room Not Found',
-                            data: data
-                        });
-                    } else {
-                        var req = unirest("GET", "https://cloud.estimote.com/v1/beacons/" + data[0].beacon_id);
-                        req.headers({
-                          "accept": "application/json",
-                          "authorization": "Basic c2xhY2stdGltb3RlLWJvb2tpbmctMXYyOmQyNGRkNmI4NTEyYTRlMTZlZmU3NWJhYjE2NWI4MzE1"
-                        });
-
-                        req.end(function (res) {
-                            if (res.error) {
-                                console.log(res.error);
-                            };
-                            estimote = res.body;
-                            booking.local = data[0];
-                            booking.estimote = estimote;
-                            console.log(booking);
-                            reply({
-                                statusCode: 200,
-                                message: 'Room Data Successfully Fetched',
-                                data: booking
-                            });
-                        });
-                    }
-                }
-            });
-        }
-    });
 
     server.route({
         method: 'GET',
