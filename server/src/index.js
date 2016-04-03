@@ -26,6 +26,7 @@ mongoose.connect('mongodb://localhost:27017/slacktimote');
 
 const RoomModel = require('./routes/rooms');
 const BookingModel = require('./routes/bookings');
+const SlackRoutes = require('./routes/slack');
 
 server.route({
     method: 'GET',
