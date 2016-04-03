@@ -25,6 +25,7 @@ const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost:27017/slacktimote');
 
 const RoomModel = require('./routes/rooms');
+const BookingModel = require('./routes/bookings');
 
 server.route({
     method: 'GET',
@@ -43,6 +44,10 @@ server.register([
     },
     {
         register: RoomModel,
+        options: {},
+    },
+    {
+        register: BookingModel,
         options: {},
     },
     {

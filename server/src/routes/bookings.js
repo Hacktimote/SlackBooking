@@ -1,47 +1,41 @@
+
 'use strict';
 
 const Boom = require('boom');
 const uuid = require('node-uuid');
 const Joi = require('joi');
 const unirest = require('unirest');
-const RoomModel = require('../models/rooms');
+const RoomModel = require('../models/bookings');
 const _ = require('lodash');
 
 exports.register = (server, options, next) => {
 
     server.route({
         method: 'POST',
-        path: '/api/room',
+        path: '/api/booking',
         config: {
             // "tags" enable swagger to document API
-            tags: ['rooms'],
-            description: 'Save room data',
-            notes: 'Save room data',
+            tags: ['bookings'],
+            description: 'Save booking data',
+            notes: 'Save booking data',
             // We use Joi plugin to validate request
             validate: {
                 payload: {
                     // Both name and age are required fields
                     name: Joi.string().required(),
-                    beacon_id: Joi.string().required(),
-                    uuid: Joi.string().required(),
-                    location: Joi.string().required(),
-                    assets: Joi.array().items(Joi.string()),
-                    capacity: Joi.string().required(),
-                    status: Joi.object({
-                        name: Joi.string().required(),
-                        bookingId: Joi.string().allow('').optional()
-                    })
+                    user_id: Joi.string().required(),
+                    reserved: Joi.date().required(),
                 }
             }
         },
         handler: function (request, reply) {
 
             // Create mongodb user object to save it into database
-            var room = new RoomModel(request.payload);
+            var booking = new RoomModel(request.payload);
 
             // Call save methods to save data into database
             // and pass callback methods to handle error
-            room.save(function (error) {
+            booking.save(function (error) {
                 if (error) {
                     reply({
                         statusCode: 503,
@@ -60,11 +54,11 @@ exports.register = (server, options, next) => {
     server.route({
         method: 'GET',
         config: {
-            tags: ['rooms'],
-            description: 'Get all Rooms',
-            notes: 'Get all Rooms'
+            tags: ['bookings'],
+            description: 'Get all Bookings',
+            notes: 'Get all Bookings'
         },
-        path: '/api/rooms',
+        path: '/api/bookings',
         handler: (request, reply) => {
             //Fetch all data from mongodb User Collection
             RoomModel.find({}, function (error, data) {
@@ -87,11 +81,11 @@ exports.register = (server, options, next) => {
 
     server.route({
         method: 'GET',
-        path: '/api/room/beacon/{beaconId}',
+        path: '/api/booking/beacon/{beaconId}',
         config: {
-            tags: ['rooms'],
-            description: 'Get room by Beacon Id',
-            notes: 'Get room by Beacon Id',
+            tags: ['bookings'],
+            description: 'Get booking by Beacon Id',
+            notes: 'Get booking by Beacon Id',
             validate: {
                 // Id is required field
                 params: {
@@ -100,7 +94,7 @@ exports.register = (server, options, next) => {
             }
         },
         handler: (request, reply) => {
-            let room = {}, local, estimote;
+            let booking = {}, local, estimote;
             //Finding user for particular userID
             RoomModel.find({beacon_id: request.params.beaconId}, function (error, data) {
                 if (error) {
@@ -128,13 +122,13 @@ exports.register = (server, options, next) => {
                                 console.log(res.error);
                             };
                             estimote = res.body;
-                            room.local = data[0];
-                            room.estimote = estimote;
-                            console.log(room);
+                            booking.local = data[0];
+                            booking.estimote = estimote;
+                            console.log(booking);
                             reply({
                                 statusCode: 200,
                                 message: 'Room Data Successfully Fetched',
-                                data: room
+                                data: booking
                             });
                         });
                     }
@@ -145,11 +139,11 @@ exports.register = (server, options, next) => {
 
     server.route({
         method: 'GET',
-        path: '/api/room/{id}',
+        path: '/api/booking/{id}',
         config: {
-            tags: ['rooms'],
-            description: 'Get room by Id',
-            notes: 'Get room by Id',
+            tags: ['bookings'],
+            description: 'Get booking by Id',
+            notes: 'Get booking by Id',
             validate: {
                 // Id is required field
                 params: {
@@ -186,61 +180,12 @@ exports.register = (server, options, next) => {
     })
 
     server.route({
-        method: 'PUT',
-        path: '/api/room/{id}',
-        config: {
-            tags: ['rooms'],
-            description: 'Update status for room',
-            notes: 'Update status for room',
-            validate: {
-                // Id is required field
-                params: {
-                    id: Joi.string().required()
-                },
-                payload: {
-                    // Both name and age are required fields
-                    status: Joi.object({
-                        name: Joi.string().required(),
-                        bookingId: Joi.string().allow('').optional()
-                    })
-                }
-            }
-        },
-        handler: (request, reply) => {
-            //Finding user for particular userID
-            RoomModel.findOneAndUpdate({_id: request.params.id}, request.payload, function (error, data) {
-                if (error) {
-                    reply({
-                        statusCode: 503,
-                        message: 'Failed to get data',
-                        data: error
-                    });
-                } else {
-                    if (data.length === 0) {
-                        reply({
-                            statusCode: 200,
-                            message: 'Room Not Found',
-                            data: data
-                        });
-                    } else {
-                        reply({
-                            statusCode: 200,
-                            message: 'Room Data Successfully Fetched',
-                            data: data
-                        });
-                    }
-                }
-            });
-        }
-    })
-
-    server.route({
         method: 'DELETE',
-        path: '/api/room/{id}',
+        path: '/api/booking/{id}',
         config: {
-            tags: ['rooms'],
-            description: 'Remove room by id',
-            notes: 'Remove room by id',
+            tags: ['bookings'],
+            description: 'Remove booking by id',
+            notes: 'Remove booking by id',
             validate: {
                 // Id is required field
                 params: {
@@ -254,7 +199,7 @@ exports.register = (server, options, next) => {
                 if (error) {
                     reply({
                         statusCode: 503,
-                        message: 'Failed to remove room',
+                        message: 'Failed to remove booking',
                         data: error
                     });
                 } else {
@@ -272,5 +217,5 @@ exports.register = (server, options, next) => {
 };
 
 exports.register.attributes = {
-    name: 'routes-rooms'
+    name: 'routes-bookings'
 };
