@@ -7,6 +7,7 @@ const uuid = require('node-uuid');
 const Joi = require('joi');
 const unirest = require('unirest');
 const _ = require('lodash');
+const SlackModule = require('../services/slack');
 
 exports.register = (server, options, next) => {
     var config = {
@@ -47,16 +48,16 @@ exports.register = (server, options, next) => {
         },
         path: '/api/slack',
         handler: (request, reply) => {
-            console.log(request);
-            if (request.payload.token === config.slash_token) {
+            if (request.query.token === config.slash_token) {
                 // Is the message format valid?
-                var command = validate(request.payload.text);
-                if (command.isValid) {
-                    // Digest the message and take the reply fn as a callback
-                    internals.processCommand(server, request, command, reply);
-                } else {
-                    reply(command.error);
-                }
+                // var command = validate(request.query.text);
+                // if (command.isValid) {
+                //     // Digest the message and take the reply fn as a callback
+                //     internals.processCommand(server, request, command, reply);
+                // } else {
+                //     reply(command.error);
+                // }
+                SlackModule.get();
             } else {
                 reply('Incorrect slash token')
             }
@@ -65,6 +66,8 @@ exports.register = (server, options, next) => {
 
     next();
 };
+
+
 
 exports.register.attributes = {
     name: 'routes-slack'
