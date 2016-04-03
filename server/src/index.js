@@ -52,6 +52,10 @@ server.register([
         options: {},
     },
     {
+        register: SlackRoutes,
+        options: {},
+    },
+    {
         register: Good,
         options: {
             reporters: [{
