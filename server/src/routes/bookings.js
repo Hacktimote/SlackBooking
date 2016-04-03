@@ -15,7 +15,7 @@ exports.register = (server, options, next) => {
         path: '/api/booking',
         config: {
             // "tags" enable swagger to document API
-            tags: ['bookings'],
+            tags: ['api'],
             description: 'Save booking data',
             notes: 'Save booking data',
             // We use Joi plugin to validate request
@@ -54,7 +54,7 @@ exports.register = (server, options, next) => {
     server.route({
         method: 'GET',
         config: {
-            tags: ['bookings'],
+            tags: ['api'],
             description: 'Get all Bookings',
             notes: 'Get all Bookings'
         },
@@ -83,7 +83,7 @@ exports.register = (server, options, next) => {
         method: 'GET',
         path: '/api/booking/{id}',
         config: {
-            tags: ['bookings'],
+            tags: ['api'],
             description: 'Get booking by Id',
             notes: 'Get booking by Id',
             validate: {
@@ -125,7 +125,7 @@ exports.register = (server, options, next) => {
         method: 'DELETE',
         path: '/api/booking/{id}',
         config: {
-            tags: ['bookings'],
+            tags: ['api'],
             description: 'Remove booking by id',
             notes: 'Remove booking by id',
             validate: {

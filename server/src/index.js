@@ -15,7 +15,7 @@ server.connection({
 
 const swagOptions = {
     info: {
-            'title': 'Test API Documentation',
+            'title': 'Slacktimote API Documentation',
             'version': Pack.version,
     },
     'host': '104.236.93.224'
