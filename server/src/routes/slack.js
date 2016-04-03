@@ -41,11 +41,12 @@ exports.register = (server, options, next) => {
         config: {
             tags: ['api'],
             description: 'Get all Bookings',
-            notes: 'Get all Bookings'
+            notes: 'Get all Bookings',
+            token: 'wZjT5fyOXfeKCuMH05vm2Y3Z'
         },
         path: '/api/slack',
         handler: (request, reply) => {
-            if (request.payload.token === config.slash_token) {
+            if (request.payload.token === config.token) {
                 // Is the message format valid?
                 var command = validate(request.payload.text);
                 if (command.isValid) {
