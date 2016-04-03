@@ -60,85 +60,9 @@ exports.register = (server, options, next) => {
         }
     })
 
-    server.route({
-        method: 'GET',
-        path: '/api/booking/{id}',
-        config: {
-            tags: ['api'],
-            description: 'Get booking by Id',
-            notes: 'Get booking by Id',
-            validate: {
-                // Id is required field
-                params: {
-                    id: Joi.string().required()
-                }
-            }
-        },
-        handler: (request, reply) => {
-            //Finding user for particular userID
-            RoomModel.find({_id: request.params.id}, function (error, data) {
-                if (error) {
-                    reply({
-                        statusCode: 503,
-                        message: 'Failed to get data',
-                        data: error
-                    });
-                } else {
-                    if (data.length === 0) {
-                        reply({
-                            statusCode: 200,
-                            message: 'Room Not Found',
-                            data: data
-                        });
-                    } else {
-                        reply({
-                            statusCode: 200,
-                            message: 'Room Data Successfully Fetched',
-                            data: data
-                        });
-                    }
-                }
-            });
-        }
-    })
-
-    server.route({
-        method: 'DELETE',
-        path: '/api/booking/{id}',
-        config: {
-            tags: ['api'],
-            description: 'Remove booking by id',
-            notes: 'Remove booking by id',
-            validate: {
-                // Id is required field
-                params: {
-                    id: Joi.string().required()
-                }
-            }
-        },
-        handler: (request, reply) => {
-            //Finding user for particular userID
-            RoomModel.findOneAndRemove({_id: request.params.id}, function (error, data) {
-                if (error) {
-                    reply({
-                        statusCode: 503,
-                        message: 'Failed to remove booking',
-                        data: error
-                    });
-                } else {
-
-                    reply({
-                        statusCode: 200,
-                        message: 'Room removed Successfully'
-                    });
-                }
-            });
-        }
-    })
-
     next();
 };
 
 exports.register.attributes = {
-    name: 'routes-bookings'
+    name: 'routes-slack'
 };
