@@ -29,7 +29,7 @@ module.exports = (function() {
 
     var getAvailableRooms = function() {
 
-        RoomModel.find({status.name: 'available'}).
+        RoomModel.find({'status.name': 'available'}).
             limit(5).
             select('mame location').
             exec(function (error, data) {
