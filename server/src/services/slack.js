@@ -17,7 +17,7 @@ module.exports = (function() {
             "channel": options.channel_id,
             "username": 'SlackTimote',
             "attachments": JSON.stringify(attachment)
-        },
+        };
 
         req.end(function (res) {
             if (res.error) {
