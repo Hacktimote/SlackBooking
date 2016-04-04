@@ -9,8 +9,7 @@ module.exports = (function() {
 
         var req = unirest("POST", "https://slack.com/api/chat.postMessage");
         req.headers({
-          "accept": "application/json",
-          "authorization": "bearer Mjc3NTM3NjYwMzkuMzA0NDA3ODM3Nzg6ZTQwNjkyZWNjZGRjZTY0Yzc3YTc2MGFkNTM0ZDQ2ZTM="
+          "accept": "application/json"
         });
 
         req.query = {
