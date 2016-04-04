@@ -16,8 +16,7 @@ module.exports = (function() {
             "token": options.slack_token,
             "channel": options.channel_id,
             "username": 'SlackTimote',
-            "attachments": JSON.stringify(attachment),
-            "icon_url": SLACK_BOT_ICON,
+            "attachments": JSON.stringify(attachment)
         },
 
         req.end(function (res) {
