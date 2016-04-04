@@ -1,14 +1,14 @@
 'use strict';
 
-var slackModule = (function() {
+module.exports = (function() {
 
     var check = function() {
         console.log('check function');
     }
 
-var get = function() {
-    console.log('get function');
-}
+    var get = function() {
+        console.log('get function');
+    }
 
     return {
         check: check,

@@ -23,8 +23,9 @@ exports.register = (server, options, next) => {
                 payload: {
                     // Both name and age are required fields
                     name: Joi.string().required(),
-                    user_id: Joi.string().required(),
-                    reserved: Joi.date().required()
+                    start: Joi.date().required(),
+                    end: Joi.date().required(),
+                    invitees: Joi.array().items(Joi.string())
                 }
             }
         },
