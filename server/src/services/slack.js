@@ -1,4 +1,6 @@
 'use strict';
+
+const unirest = require('unirest');
 const RoomModel = require('../models/rooms');
 
 module.exports = (function() {
