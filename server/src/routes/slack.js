@@ -48,16 +48,9 @@ exports.register = (server, options, next) => {
         },
         path: '/api/slack',
         handler: (request, reply) => {
+            console.log(request.query);
             if (request.query.token === config.slash_token) {
-                // Is the message format valid?
-                // var command = validate(request.query.text);
-                // if (command.isValid) {
-                //     // Digest the message and take the reply fn as a callback
-                //     internals.processCommand(server, request, command, reply);
-                // } else {
-                //     reply(command.error);
-                // }
-                SlackModule.get();
+                SlackModule.process(request.query);
             } else {
                 reply('Incorrect slash token')
             }

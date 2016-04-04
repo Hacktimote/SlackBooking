@@ -4,8 +4,7 @@
 const Boom = require('boom');
 const uuid = require('node-uuid');
 const Joi = require('joi');
-const unirest = require('unirest');
-const RoomModel = require('../models/bookings');
+const BookingModel = require('../models/bookings');
 const _ = require('lodash');
 
 exports.register = (server, options, next) => {
@@ -62,7 +61,7 @@ exports.register = (server, options, next) => {
         path: '/api/bookings',
         handler: (request, reply) => {
             //Fetch all data from mongodb User Collection
-            RoomModel.find({}, function (error, data) {
+            BookingModel.find({}, function (error, data) {
                 if (error) {
                     reply({
                         statusCode: 503,
@@ -96,7 +95,7 @@ exports.register = (server, options, next) => {
         },
         handler: (request, reply) => {
             //Finding user for particular userID
-            RoomModel.find({_id: request.params.id}, function (error, data) {
+            BookingModel.find({_id: request.params.id}, function (error, data) {
                 if (error) {
                     reply({
                         statusCode: 503,
