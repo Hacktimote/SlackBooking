@@ -23,7 +23,7 @@ module.exports = (function() {
             if (res.error) {
                 console.log(res.error);
             };
-            console.log(res);
+            // console.log(res);
         });
 
     }
