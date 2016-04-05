@@ -18,7 +18,21 @@ const swagOptions = {
             'title': 'Slacktimote API Documentation',
             'version': Pack.version,
     },
-    'host': '104.236.93.224'
+    'host': '104.236.93.224',
+    tags: [
+        {
+            'name': 'rooms',
+            'description': 'Room API calls'
+        },
+        {
+            'name': 'bookings',
+            'description': 'Booking API calls'
+        },
+        {
+            'name': 'slack',
+            'description': 'Slack API calls'
+        }
+    ]
     };
 
 const mongoose = require('mongoose');
