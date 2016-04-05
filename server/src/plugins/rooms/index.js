@@ -4,12 +4,16 @@ const Boom = require('boom');
 const uuid = require('node-uuid');
 const Joi = require('joi');
 const unirest = require('unirest');
-const RoomModel = require('../models/rooms');
 const _ = require('lodash');
+const RoomModel = require('./rooms');
 
-exports.register = (server, options, next) => {
+exports.register = (plugin, options, next) => {
 
-    server.route({
+    var Room = require('./rooms');
+
+    plugin.expose(Room);
+
+    plugin.route({
         method: 'POST',
         path: '/api/room',
         config: {
@@ -22,7 +26,6 @@ exports.register = (server, options, next) => {
                 payload: {
                     // Both name and age are required fields
                     name: Joi.string().required(),
-                    beacon_id: Joi.string().required(),
                     uuid: Joi.string().required(),
                     location: Joi.string().required(),
                     assets: Joi.array().items(Joi.string()),
@@ -57,7 +60,7 @@ exports.register = (server, options, next) => {
         }
     });
 
-    server.route({
+    plugin.route({
         method: 'GET',
         config: {
             tags: ['api'],
@@ -85,71 +88,13 @@ exports.register = (server, options, next) => {
         }
     })
 
-    server.route({
+    plugin.route({
         method: 'GET',
-        path: '/api/room/beacon/{beaconId}',
+        path: '/api/room/{uid}',
         config: {
             tags: ['api'],
-            description: 'Get room by Beacon Id',
-            notes: 'Get room by Beacon Id',
-            validate: {
-                // Id is required field
-                params: {
-                    beaconId: Joi.string().required()
-                }
-            }
-        },
-        handler: (request, reply) => {
-            let room = {}, local, estimote;
-            //Finding user for particular userID
-            RoomModel.find({beacon_id: request.params.beaconId}, function (error, data) {
-                if (error) {
-                    reply({
-                        statusCode: 503,
-                        message: 'Failed to get data',
-                        data: error
-                    });
-                } else {
-                    if (data.length === 0) {
-                        reply({
-                            statusCode: 200,
-                            message: 'Room Not Found',
-                            data: data
-                        });
-                    } else {
-                        var req = unirest("GET", "https://cloud.estimote.com/v1/beacons/" + data[0].beacon_id);
-                        req.headers({
-                          "accept": "application/json",
-                          "authorization": "Basic c2xhY2stdGltb3RlLWJvb2tpbmctMXYyOmQyNGRkNmI4NTEyYTRlMTZlZmU3NWJhYjE2NWI4MzE1"
-                        });
-
-                        req.end(function (res) {
-                            if (res.error) {
-                                console.log(res.error);
-                            };
-                            estimote = res.body;
-                            room.local = data[0];
-                            room.estimote = estimote;
-                            console.log(room);
-                            reply({
-                                statusCode: 200,
-                                message: 'Room Data Successfully Fetched',
-                                data: room
-                            });
-                        });
-                    }
-                }
-            });
-        }
-    });
-
-    server.route({
-        method: 'GET',
-        path: '/api/room/{id}',
-        config: {
-            tags: ['api'],
-            description: 'Get room by Id',
-            notes: 'Get room by Id',
+            description: 'Get room by UUID',
+            notes: 'Get room by UUID',
             validate: {
                 // Id is required field
                 params: {
@@ -159,7 +104,7 @@ exports.register = (server, options, next) => {
         },
         handler: (request, reply) => {
             //Finding user for particular userID
-            RoomModel.find({_id: request.params.id}, function (error, data) {
+            RoomModel.find({uuid: request.params.uuid}, function (error, data) {
                 if (error) {
                     reply({
                         statusCode: 503,
@@ -185,7 +130,7 @@ exports.register = (server, options, next) => {
         }
     })
 
-    server.route({
+    plugin.route({
         method: 'PUT',
         path: '/api/room/{id}',
         config: {
@@ -234,7 +179,7 @@ exports.register = (server, options, next) => {
         }
     })
 
-    server.route({
+    plugin.route({
         method: 'DELETE',
         path: '/api/room/{id}',
         config: {

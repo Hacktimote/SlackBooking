@@ -38,9 +38,9 @@ const swagOptions = {
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost:27017/slacktimote');
 
-const RoomModel = require('./routes/rooms');
-const BookingModel = require('./routes/bookings');
-const SlackRoutes = require('./routes/slack');
+const RoomModel = require('./plugins/rooms');
+const BookingModel = require('./plugins/bookings');
+const SlackRoutes = require('./plugins/slack');
 
 server.route({
     method: 'GET',
@@ -57,18 +57,9 @@ server.register([
         register: require('hapi-swagger'),
         options: swagOptions
     },
-    {
-        register: RoomModel,
-        options: {},
-    },
-    {
-        register: BookingModel,
-        options: {},
-    },
-    {
-        register: SlackRoutes,
-        options: {},
-    },
+    { register: RoomModel },
+    { register: BookingModel },
+    { register: SlackRoutes },
     {
         register: Good,
         options: {

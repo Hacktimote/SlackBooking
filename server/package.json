@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "forever start ./src/index.js",
-	"stop" : "forever stop ./src/index.js"
+    "stop": "forever stop ./src/index.js"
   },
   "repository": {
     "type": "git",
@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/R0muald/SlackBooking#readme",
   "dependencies": {
+    "bluebird": "^3.3.4",
     "boom": "^3.1.2",
     "good": "^6.6.0",
     "good-console": "^5.3.1",

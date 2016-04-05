@@ -4,12 +4,16 @@
 const Boom = require('boom');
 const uuid = require('node-uuid');
 const Joi = require('joi');
-const BookingModel = require('../models/bookings');
+const BookingModel = require('./bookings');
 const _ = require('lodash');
 
-exports.register = (server, options, next) => {
+exports.register = (plugin, options, next) => {
 
-    server.route({
+    var Booking = require('./bookings');
+
+    plugin.expose(Booking);
+
+    plugin.route({
         method: 'POST',
         path: '/api/booking',
         config: {
@@ -21,7 +25,7 @@ exports.register = (server, options, next) => {
             validate: {
                 payload: {
                     // Both name and age are required fields
-                    name: Joi.string().required(),
+                    roomId: Joi.string().required(),
                     start: Joi.date().required(),
                     end: Joi.date().required(),
                     invitees: Joi.array().items(Joi.string())
@@ -31,7 +35,7 @@ exports.register = (server, options, next) => {
         handler: function (request, reply) {
 
             // Create mongodb user object to save it into database
-            var booking = new RoomModel(request.payload);
+            var booking = new BookingModel(request.payload);
 
             // Call save methods to save data into database
             // and pass callback methods to handle error
@@ -51,7 +55,7 @@ exports.register = (server, options, next) => {
         }
     });
 
-    server.route({
+    plugin.route({
         method: 'GET',
         config: {
             tags: ['api'],
@@ -79,7 +83,7 @@ exports.register = (server, options, next) => {
         }
     })
 
-    server.route({
+    plugin.route({
         method: 'GET',
         path: '/api/booking/{id}',
         config: {
@@ -121,7 +125,7 @@ exports.register = (server, options, next) => {
         }
     })
 
-    server.route({
+    plugin.route({
         method: 'DELETE',
         path: '/api/booking/{id}',
         config: {
