@@ -14,7 +14,7 @@ exports.register = (server, options, next) => {
         path: '/api/room',
         config: {
             // "tags" enable swagger to document API
-            tags: ['api'],
+            tags: ['rooms'],
             description: 'Save room data',
             notes: 'Save room data',
             // We use Joi plugin to validate request
@@ -60,7 +60,7 @@ exports.register = (server, options, next) => {
     server.route({
         method: 'GET',
         config: {
-            tags: ['api'],
+            tags: ['rooms'],
             description: 'Get all Rooms',
             notes: 'Get all Rooms'
         },
@@ -89,7 +89,7 @@ exports.register = (server, options, next) => {
         method: 'GET',
         path: '/api/room/beacon/{beaconId}',
         config: {
-            tags: ['api'],
+            tags: ['rooms'],
             description: 'Get room by Beacon Id',
             notes: 'Get room by Beacon Id',
             validate: {
@@ -147,7 +147,7 @@ exports.register = (server, options, next) => {
         method: 'GET',
         path: '/api/room/{id}',
         config: {
-            tags: ['api'],
+            tags: ['rooms'],
             description: 'Get room by Id',
             notes: 'Get room by Id',
             validate: {
@@ -189,7 +189,7 @@ exports.register = (server, options, next) => {
         method: 'PUT',
         path: '/api/room/{id}',
         config: {
-            tags: ['api'],
+            tags: ['rooms'],
             description: 'Update status for room',
             notes: 'Update status for room',
             validate: {
@@ -238,7 +238,7 @@ exports.register = (server, options, next) => {
         method: 'DELETE',
         path: '/api/room/{id}',
         config: {
-            tags: ['api'],
+            tags: ['rooms'],
             description: 'Remove room by id',
             notes: 'Remove room by id',
             validate: {
