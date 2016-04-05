@@ -90,7 +90,7 @@ exports.register = (plugin, options, next) => {
 
     plugin.route({
         method: 'GET',
-        path: '/api/room/{uid}',
+        path: '/api/room/{uuid}',
         config: {
             tags: ['api'],
             description: 'Get room by UUID',
@@ -98,7 +98,7 @@ exports.register = (plugin, options, next) => {
             validate: {
                 // Id is required field
                 params: {
-                    id: Joi.string().required()
+                    uuid: Joi.string().required()
                 }
             }
         },
