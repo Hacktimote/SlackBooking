@@ -5,7 +5,7 @@ const uuid = require('node-uuid');
 const Joi = require('joi');
 const unirest = require('unirest');
 const _ = require('lodash');
-const RoomModel = require('./rooms');
+const RoomModel = require('../../models/rooms');
 
 exports.register = (plugin, options, next) => {
 

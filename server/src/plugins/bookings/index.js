@@ -4,8 +4,8 @@
 const Boom = require('boom');
 const uuid = require('node-uuid');
 const Joi = require('joi');
-const BookingModel = require('./bookings');
 const _ = require('lodash');
+const BookingModel = require('../../models/bookings');
 
 exports.register = (plugin, options, next) => {
 
