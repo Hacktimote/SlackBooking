@@ -56,8 +56,8 @@ module.exports = (function() {
     Slack.process = function(options) {
 
         var rooms = getAvailableRooms();
-
-        postToSlack(rooms[0]);
+		console.log(rooms);
+        postToSlack(rooms);
     }
 
     return Slack;
