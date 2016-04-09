@@ -48,7 +48,6 @@ module.exports = (function() {
                 if (error) {
                     console.log(error);
                 } else {
-                    console.log(data);
                     return data;
                 }
             });
@@ -58,7 +57,7 @@ module.exports = (function() {
 
         var rooms = getAvailableRooms();
 
-        postToSlack(rooms);
+        postToSlack(rooms[0]);
     }
 
     return Slack;
