@@ -102,8 +102,6 @@ module.exports = (function() {
                         status: status
                     }
 
-                    console.log(updated);
-                    console.log(response.roomId);
                     RoomModel.findOneAndUpdate({_id: response.roomId}, updated, function (error, data) {
                         if (error) {
 							postErrorToSlack('Failed to book room. Try again later');
@@ -123,7 +121,7 @@ module.exports = (function() {
 			if (error) {
 				postErrorToSlack(error);
 			} else {
-				postListToSlack(data);
+				bookRoom(data);
 			}
 		});
 	}
@@ -153,7 +151,7 @@ module.exports = (function() {
 				// const command = commandArray[0];
 				let reservation = commandArray[1];
 				reservation = reservation.replace("#", "");
-				bookRoom(reservation);
+				getRoomId(reservation);
 
 			} else if (commandArray.length < 2) {
 				console.log('Not enough parameters to book. You must include a room number');
