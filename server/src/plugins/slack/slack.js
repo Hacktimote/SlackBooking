@@ -2,6 +2,7 @@
 
 const unirest = require('unirest');
 const RoomModel = require('../../models/rooms');
+const BookingModel = require('../../models/bookings');
 const _ = require('lodash');
 const moment = require('moment');
 
@@ -55,6 +56,73 @@ module.exports = (function() {
 		});
     }
 
+	const bookRoom = function(id) {
+
+			var now = moment().format('YYYY-MM-DD');
+			var hour = moment().add(1, 'h').format('YYYY-MM-DD');
+
+			var payload = {
+				"roomId": id,
+				"start": now,
+				"end": hour,
+				"invitees": [
+					"string"
+				]
+			};
+
+            var booking = new BookingModel(payload);
+
+            // Call save methods to save data into database
+            // and pass callback methods to handle error
+            booking.save(function (error, response) {
+                if (error) {
+                    reply({
+                        statusCode: 503,
+                        message: error
+                    });
+                } else {
+                    console.log(response);
+
+                    const status = {
+                        name: 'Booked',
+                        bookingId: response._id
+                    };
+                    const updated = {
+                        status: status
+                    }
+
+                    console.log(updated);
+                    console.log(response.roomId);
+                    RoomModel.findOneAndUpdate({_id: response.roomId}, updated, function (error, data) {
+                        if (error) {
+                            reply({
+                                statusCode: 503,
+                                message: 'Failed to get data',
+                            });
+                        } else {
+                            reply({
+                                statusCode: 200,
+                                message: 'Booking Saved'
+                            });
+                        }
+                    });
+                }
+            });
+	};
+
+	const getRoomId = function(reservation) {
+		let query = RoomModel.find({'location': reservation}).
+		select('_id');
+
+		query.exec(function (error, data) {
+			if (error) {
+				postErrorToSlack(error);
+			} else {
+				postToSlack(data);
+			}
+		});
+	}
+
     Slack.process = function(options) {
 
 		if(options.text === '') {
@@ -73,15 +141,19 @@ module.exports = (function() {
 
 		} else {
 			let commandText = options.text;
-			let commandArray = commandText.split(/(\s+)/);
-			console.log(commandArray);
-			if(commandArray.length >= 1) {
+			let commandArray = commandText.split(' ');
 
-				const command = commandArray[0];
-				const reservation = commandArray[2];
+			if(commandArray.length == 2) {
 
-			} else {
-				postErrorToSlack('command is too small');
+				// const command = commandArray[0];
+				const reservation = commandArray[1];
+				reservation = reservation.replace("#", "");
+				slackBookRoom(reservation);
+
+			} else if (commandArray.length < 2) {
+				console.log('Not enough parameters to book. You must include a room number');
+			} else if (commandArray.length > 2) {
+				console.log('You can only enter the command "/rooms book #{roomnumber}"');
 			}
 
 		}

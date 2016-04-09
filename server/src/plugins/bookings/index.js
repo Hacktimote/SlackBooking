@@ -34,7 +34,7 @@ exports.register = (plugin, options, next) => {
             }
         },
         handler: function (request, reply) {
-
+            console.log(request.payload);
             // Create mongodb user object to save it into database
             var booking = new BookingModel(request.payload);
 
