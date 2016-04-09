@@ -7,14 +7,16 @@ const uuid = require('node-uuid');
 const Joi = require('joi');
 const unirest = require('unirest');
 const _ = require('lodash');
+const moment = require('moment');
+
 
 exports.register = (plugin, options, next) => {
 
-    var config = {
+    let config = {
         slash_token: 'wZjT5fyOXfeKCuMH05vm2Y3Z'
     };
 
-    const Slack = require('./slack')
+    let Slack = require('./slack')
 
     plugin.expose(Slack);
 
@@ -38,7 +40,6 @@ exports.register = (plugin, options, next) => {
 
     next();
 };
-
 
 
 exports.register.attributes = {

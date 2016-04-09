@@ -3,36 +3,26 @@
 const unirest = require('unirest');
 const RoomModel = require('../../models/rooms');
 
+const SlackClient = require('slack-client');
+
 module.exports = (function() {
 
-    var Slack = {};
+    const Slack = {};
 
-    var postToSlack = function(attachment, options) {
+    const postToSlack = function(options) {
 
-        var req = unirest("POST", "https://slack.com/api/chat.postMessage");
-        req.headers({
-          "accept": "application/json"
-        });
+        const slackClient = new SlackClient('xoxb-33342111186-90EAwXTIxKOx6F0zQR7PcJF4');
+        slackClient.login();
 
-        req.query = {
-            "token": options.slack_token,
-            "channel": options.channel_id,
-            "username": 'SlackTimote',
-            "attachments": JSON.stringify(attachment)
-        };
-
-        req.end(function (res) {
-            if (res.error) {
-                console.log(res.error);
-            };
-            console.log(res.body);
-        });
+        console.log(options);
+        var channel = slackClient.getChannelGroupOrDMByID(options.channel);
+        channel.send('Hello world!');
 
     }
 
     var getAvailableRooms = function() {
 
-        RoomModel.find({'status.name': 'available'}).
+        RoomModel.find({'status.name': 'Available'}).
             limit(5).
             select('mame location').
             exec(function (error, data) {
@@ -48,16 +38,7 @@ module.exports = (function() {
 
         var rooms = getAvailableRooms();
 
-        var attachment = [{
-           'fallback': 'Required plain-text summary of the attachment',
-           'author_name': 'Success! You created an item!',
-           'title': 'Item: #1234',
-           'title_link': 'Rooms available',
-           'fields': rooms,
-           'color': '#36a64f'
-        }];
-
-        postToSlack(attachment, options);
+        postToSlack(options);
     }
 
     return Slack;

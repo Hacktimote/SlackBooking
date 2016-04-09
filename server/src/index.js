@@ -18,7 +18,8 @@ const swagOptions = {
             'title': 'Slacktimote API Documentation',
             'version': Pack.version,
     },
-    'host': '104.236.93.224',
+    // 'host': 'localhost:3000',
+    'host': 'hacktimote.site',
     tags: [
         {
             'name': 'rooms',
@@ -36,6 +37,7 @@ const swagOptions = {
     };
 
 const mongoose = require('mongoose');
+// mongoose.connect('mongodb://localhost:4321/slacktimote');
 mongoose.connect('mongodb://localhost:27017/slacktimote');
 
 const RoomModel = require('./plugins/rooms');

@@ -3,7 +3,7 @@ var Schema = mongoose.Schema;
 
 const RoomSchema = new Schema({
     name: String,
-    uuid: String,
+    beaconId: String,
     location: String,
     assets: Array,
     capacity: String,
@@ -11,3 +11,4 @@ const RoomSchema = new Schema({
 });
 
 module.exports = mongoose.model('rooms', RoomSchema);
+

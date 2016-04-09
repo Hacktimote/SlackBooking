@@ -6,6 +6,7 @@ const uuid = require('node-uuid');
 const Joi = require('joi');
 const _ = require('lodash');
 const BookingModel = require('../../models/bookings');
+const RoomModel = require('../../models/rooms');
 
 exports.register = (plugin, options, next) => {
 
@@ -39,16 +40,37 @@ exports.register = (plugin, options, next) => {
 
             // Call save methods to save data into database
             // and pass callback methods to handle error
-            booking.save(function (error) {
+            booking.save(function (error, response) {
                 if (error) {
                     reply({
                         statusCode: 503,
                         message: error
                     });
                 } else {
-                    reply({
-                        statusCode: 201,
-                        message: 'Room Saved Successfully'
+                    console.log(response);
+
+                    const status = {
+                        name: 'Booked',
+                        bookingId: response._id
+                    };
+                    const updated = {
+                        status: status
+                    }
+
+                    console.log(updated);
+                    console.log(response.roomId);
+                    RoomModel.findOneAndUpdate({_id: response.roomId}, updated, function (error, data) {
+                        if (error) {
+                            reply({
+                                statusCode: 503,
+                                message: 'Failed to get data',
+                            });
+                        } else {
+                            reply({
+                                statusCode: 200,
+                                message: 'Booking Saved'
+                            });
+                        }
                     });
                 }
             });

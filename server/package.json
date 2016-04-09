@@ -33,8 +33,10 @@
     "inert": "^3.2.0",
     "joi": "^8.0.5",
     "lodash": "^4.7.0",
+    "moment": "latest",
     "mongoose": "^4.4.10",
     "node-uuid": "^1.4.7",
+    "slack-client": "^2.0.4",
     "unirest": "^0.4.2",
     "vision": "^4.0.1"
   },

@@ -9,10 +9,6 @@ const RoomModel = require('../../models/rooms');
 
 exports.register = (plugin, options, next) => {
 
-    var Room = require('./rooms');
-
-    plugin.expose(Room);
-
     plugin.route({
         method: 'POST',
         path: '/api/room',
@@ -26,7 +22,7 @@ exports.register = (plugin, options, next) => {
                 payload: {
                     // Both name and age are required fields
                     name: Joi.string().required(),
-                    uuid: Joi.string().required(),
+                    beaconId: Joi.string().required(),
                     location: Joi.string().required(),
                     assets: Joi.array().items(Joi.string()),
                     capacity: Joi.string().required(),
@@ -90,7 +86,7 @@ exports.register = (plugin, options, next) => {
 
     plugin.route({
         method: 'GET',
-        path: '/api/room/{uuid}',
+        path: '/api/room/{beaconId}',
         config: {
             tags: ['api'],
             description: 'Get room by UUID',
@@ -98,13 +94,13 @@ exports.register = (plugin, options, next) => {
             validate: {
                 // Id is required field
                 params: {
-                    uuid: Joi.string().required()
+                    beaconId: Joi.string().required()
                 }
             }
         },
         handler: (request, reply) => {
             //Finding user for particular userID
-            RoomModel.find({uuid: request.params.uuid}, function (error, data) {
+            RoomModel.find({beaconId: request.params.beaconId}, function (error, data) {
                 if (error) {
                     reply({
                         statusCode: 503,
@@ -153,6 +149,7 @@ exports.register = (plugin, options, next) => {
         },
         handler: (request, reply) => {
             //Finding user for particular userID
+            console.log(request.payload);
             RoomModel.findOneAndUpdate({_id: request.params.id}, request.payload, function (error, data) {
                 if (error) {
                     reply({
