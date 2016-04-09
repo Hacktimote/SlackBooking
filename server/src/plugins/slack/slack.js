@@ -138,7 +138,7 @@ module.exports = (function() {
                 if (error) {
 					postErrorToSlack(error);
                 } else {
-					postToSlack(data);
+					postListToSlack(data);
 				}
             });
 
