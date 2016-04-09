@@ -43,15 +43,11 @@ module.exports = (function() {
 
     const postMessageToSlack = function(message) {
 
-
-		const message = {
-			"text": message
-		};
-
-
         unirest.post('https://hooks.slack.com/services/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')
 		.headers({'Accept': 'application/json', 'Content-Type': 'application/json'})
-		.send(message)
+		.send({
+			"text": message
+		})
 		.end(function (response) {
 		});
     }
