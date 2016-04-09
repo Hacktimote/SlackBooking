@@ -148,7 +148,7 @@ module.exports = (function() {
 				// const command = commandArray[0];
 				let reservation = commandArray[1];
 				reservation = reservation.replace("#", "");
-				slackBookRoom(reservation);
+				bookRoom(reservation);
 
 			} else if (commandArray.length < 2) {
 				console.log('Not enough parameters to book. You must include a room number');
