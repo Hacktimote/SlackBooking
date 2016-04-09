@@ -10,7 +10,7 @@ module.exports = (function() {
 
     const Slack = {};
 
-    const postToSlack = function(rooms) {
+    const postListToSlack = function(rooms) {
 
 		let roomValue= '';
 		for(let room = 0; room < rooms.length; room++) {
@@ -31,6 +31,21 @@ module.exports = (function() {
 					]
 				}
 			]
+		};
+
+
+        unirest.post('https://hooks.slack.com/services/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')
+		.headers({'Accept': 'application/json', 'Content-Type': 'application/json'})
+		.send(message)
+		.end(function (response) {
+		});
+    }
+
+    const postMessageToSlack = function(message) {
+
+
+		const message = {
+			"text": message
 		};
 
 
@@ -95,15 +110,9 @@ module.exports = (function() {
                     console.log(response.roomId);
                     RoomModel.findOneAndUpdate({_id: response.roomId}, updated, function (error, data) {
                         if (error) {
-                            reply({
-                                statusCode: 503,
-                                message: 'Failed to get data',
-                            });
+							postErrorToSlack('Failed to book room. Try again later');
                         } else {
-                            reply({
-                                statusCode: 200,
-                                message: 'Booking Saved'
-                            });
+							postMessageToSlack('Room Booked');
                         }
                     });
                 }
@@ -118,7 +127,7 @@ module.exports = (function() {
 			if (error) {
 				postErrorToSlack(error);
 			} else {
-				postToSlack(data);
+				postListToSlack(data);
 			}
 		});
 	}
