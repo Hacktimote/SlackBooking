@@ -41,6 +41,7 @@ module.exports = (function() {
 
     Slack.process = function(options) {
 
+		console.log(options);
         var query = RoomModel.find({'status.name': 'Available'}).
             limit(5).
             select('name location');
