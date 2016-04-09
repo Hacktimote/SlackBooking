@@ -8,6 +8,7 @@ module.exports = (function() {
     const Slack = {};
 
     const postToSlack = function(rooms) {
+        console.log(rooms);
 		const roomValue = '';
 		for(room in rooms) {
 			roomValue += room.name + ' Location: ' + room.location + '\n';
@@ -57,7 +58,6 @@ module.exports = (function() {
 
         var rooms = getAvailableRooms();
 
-        console.log(rooms);
         postToSlack(rooms);
     }
 
