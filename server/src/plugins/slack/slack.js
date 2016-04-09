@@ -3,15 +3,17 @@
 const unirest = require('unirest');
 const RoomModel = require('../../models/rooms');
 
-const SlackClient = require('slack-client');
-const RtmClient = require('slack-client').RtmClient;
-
 module.exports = (function() {
 
     const Slack = {};
 
     const postToSlack = function(options) {
-
+        unirest.post('https://hooks.slack.com/services/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')
+		.headers({'Accept': 'application/json', 'Content-Type': 'application/json'})
+		.send({ "text": "Hello World"})
+		.end(function (response) {
+		  console.log(response.body);
+		});
     }
 
     var getAvailableRooms = function() {
@@ -34,7 +36,7 @@ module.exports = (function() {
         var rooms = getAvailableRooms();
 
         console.log(rooms);
-        return rooms;
+        postToSlack(rooms);
     }
 
     return Slack;
