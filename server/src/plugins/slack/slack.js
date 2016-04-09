@@ -39,7 +39,7 @@ module.exports = (function() {
 		});
     }
 
-    var getAvailableRooms = function() {
+    Slack.process = function(options) {
 
         var query = RoomModel.find({'status.name': 'Available'}).
             limit(5).
@@ -48,16 +48,10 @@ module.exports = (function() {
             query.exec(function (error, data) {
                 if (error) {
                     console.log(error);
-                }
-				return data;
+                } else {
+					postToSlack(data);
+				}
             });
-    }
-
-    Slack.process = function(options) {
-
-        var rooms = getAvailableRooms();
-		console.log(rooms);
-        postToSlack(rooms);
     }
 
     return Slack;
