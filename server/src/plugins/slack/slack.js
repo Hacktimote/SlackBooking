@@ -45,7 +45,7 @@ module.exports = (function() {
 
 
 		const message = {
-			"text": "Command did not work\n" + error;
+			"text": "Command did not work \n" + error
 		};
 
 
