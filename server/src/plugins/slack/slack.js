@@ -11,7 +11,7 @@ module.exports = (function() {
 
 		let roomValue= '';
 		for(let room = 0; room < rooms.length; room++) {
-			roomValue += rooms[room].name + ' Location: ' + rooms[room].location + '\n';
+			roomValue += '#' + rooms[room].location + ' | ' + rooms[room].name + '\n';
 		};
 
 		console.log(roomValue);
