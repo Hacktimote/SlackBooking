@@ -31,7 +31,8 @@ exports.register = (plugin, options, next) => {
         handler: (request, reply) => {
             console.log(request.query);
             if (request.query.token === config.slash_token) {
-                Slack.process(request.query);
+                const slacked = Slack.process(request.query);
+                reply(slacked);
             } else {
                 reply('Incorrect slash token')
             }
