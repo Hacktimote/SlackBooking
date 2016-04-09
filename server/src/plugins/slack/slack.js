@@ -32,6 +32,7 @@ module.exports = (function() {
 
         var rooms = getAvailableRooms();
 
+        console.log(rooms);
         return rooms;
     }
 
