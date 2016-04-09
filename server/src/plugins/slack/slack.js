@@ -62,7 +62,7 @@ module.exports = (function() {
 		console.log(options);
 		if(options.text === '') {
 
-			var query = RoomModel.find({'status.name': 'Available'}).
+			let query = RoomModel.find({'status.name': 'Available'}).
             limit(5).
             select('name location');
 
@@ -75,8 +75,8 @@ module.exports = (function() {
             });
 
 		} else {
-			var commandText = options.text;
-			var commandArray = command.split(/(\s+)/);
+			let commandText = options.text;
+			let commandArray = commandText.split(/(\s+)/);
 
 			if(commandArray.length >= 1) {
 
