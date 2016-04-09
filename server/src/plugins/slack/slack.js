@@ -41,15 +41,15 @@ module.exports = (function() {
 
     var getAvailableRooms = function() {
 
-        RoomModel.find({'status.name': 'Available'}).
+        var query = RoomModel.find({'status.name': 'Available'}).
             limit(5).
-            select('name location').
-            exec(function (error, data) {
+            select('name location');
+
+            query.exec(function (error, data) {
                 if (error) {
                     console.log(error);
-                } else {
-                    return data;
                 }
+				return data;
             });
     }
 
