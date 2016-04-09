@@ -10,9 +10,9 @@ module.exports = (function() {
     const postToSlack = function(rooms) {
         console.log(rooms);
 		let roomValue= '';
-		for(let room in rooms) {
-			console.log(room);
-			roomValue += room.name + ' Location: ' + room.location + '\n';
+		for(let room = 0; room < rooms.length; room++) {
+			console.log(rooms[room]);
+			roomValue += rooms[room].name + ' Location: ' + rooms[room].location + '\n';
 		};
 
 		console.log(roomValue);
