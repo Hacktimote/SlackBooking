@@ -83,11 +83,11 @@ module.exports = (function() {
                 } else {
                     console.log(response);
 
-                    const status = {
+                    let status = {
                         name: 'Booked',
                         bookingId: response._id
                     };
-                    const updated = {
+                    let updated = {
                         status: status
                     }
 
@@ -146,7 +146,7 @@ module.exports = (function() {
 			if(commandArray.length == 2) {
 
 				// const command = commandArray[0];
-				const reservation = commandArray[1];
+				let reservation = commandArray[1];
 				reservation = reservation.replace("#", "");
 				slackBookRoom(reservation);
 
