@@ -37,7 +37,6 @@ module.exports = (function() {
 		.headers({'Accept': 'application/json', 'Content-Type': 'application/json'})
 		.send(message)
 		.end(function (response) {
-		  console.log(response.body);
 		});
     }
 
@@ -53,13 +52,11 @@ module.exports = (function() {
 		.headers({'Accept': 'application/json', 'Content-Type': 'application/json'})
 		.send(message)
 		.end(function (response) {
-		  console.log(response.body);
 		});
     }
 
     Slack.process = function(options) {
 
-		console.log(options);
 		if(options.text === '') {
 
 			let query = RoomModel.find({'status.name': 'Available'}).
@@ -68,7 +65,7 @@ module.exports = (function() {
 
             query.exec(function (error, data) {
                 if (error) {
-                    console.log(error);
+					postErrorToSlack(error);
                 } else {
 					postToSlack(data);
 				}
@@ -77,7 +74,7 @@ module.exports = (function() {
 		} else {
 			let commandText = options.text;
 			let commandArray = commandText.split(/(\s+)/);
-
+			console.log(commandArray);
 			if(commandArray.length >= 1) {
 
 				const command = commandArray[0];

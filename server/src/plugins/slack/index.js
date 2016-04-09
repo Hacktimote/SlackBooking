@@ -27,7 +27,6 @@ exports.register = (plugin, options, next) => {
         },
         path: '/api/slack',
         handler: (request, reply) => {
-            console.log(request.query);
             if (request.query.token === config.slash_token) {
                 const slacked = Slack.process(request.query);
                 reply(slacked);
