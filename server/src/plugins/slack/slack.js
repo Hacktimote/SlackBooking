@@ -2,6 +2,8 @@
 
 const unirest = require('unirest');
 const RoomModel = require('../../models/rooms');
+const _ = require('lodash');
+const moment = require('moment');
 
 module.exports = (function() {
 
@@ -39,10 +41,28 @@ module.exports = (function() {
 		});
     }
 
+    const postErrorToSlack = function(error) {
+
+
+		const message = {
+			"text": "Command did not work\n" + error;
+		};
+
+
+        unirest.post('https://hooks.slack.com/services/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')
+		.headers({'Accept': 'application/json', 'Content-Type': 'application/json'})
+		.send(message)
+		.end(function (response) {
+		  console.log(response.body);
+		});
+    }
+
     Slack.process = function(options) {
 
 		console.log(options);
-        var query = RoomModel.find({'status.name': 'Available'}).
+		if(options.text === '') {
+
+			var query = RoomModel.find({'status.name': 'Available'}).
             limit(5).
             select('name location');
 
@@ -53,6 +73,21 @@ module.exports = (function() {
 					postToSlack(data);
 				}
             });
+
+		} else {
+			var commandText = options.text;
+			var commandArray = command.split(/(\s+)/);
+
+			if(commandArray.length >= 1) {
+
+				const command = commandArray[0];
+				const reservation = commandArray[2];
+
+			} else {
+				postErrorToSlack('command is too small');
+			}
+
+		}
     }
 
     return Slack;

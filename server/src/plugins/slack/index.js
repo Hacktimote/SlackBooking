@@ -6,8 +6,6 @@ const Boom = require('boom');
 const uuid = require('node-uuid');
 const Joi = require('joi');
 const unirest = require('unirest');
-const _ = require('lodash');
-const moment = require('moment');
 
 
 exports.register = (plugin, options, next) => {
