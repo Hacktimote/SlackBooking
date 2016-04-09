@@ -12,6 +12,8 @@ module.exports = (function() {
 		for(room in rooms) {
 			roomValue += room.name + ' Location: ' + room.location + '\n';
 		};
+
+		console.log(roomValue);
 		const message = {
 			"text": "Here is a list of avaialable rooms.",
 			"attachments": [
