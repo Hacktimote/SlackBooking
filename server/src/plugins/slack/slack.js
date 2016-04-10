@@ -105,7 +105,7 @@ module.exports = (function() {
                         status: status
                     }
 					console.log(response.roomId);
-                    RoomModel.findOneAndUpdate({'_id': response.roomId}, updated, function (error, data) {
+                    RoomModel.findOneAndUpdate({'_id': response.roomId._id}, updated, function (error, data) {
                         if (error) {
 							console.log(error);
 							Slack.postErrorToSlack('Failed to book room. Try again later');
