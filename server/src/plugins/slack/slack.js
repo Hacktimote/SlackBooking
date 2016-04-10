@@ -77,7 +77,7 @@ module.exports = (function() {
 
 			console.log(room);
 			var payload = {
-				"roomId": room._id,
+				"roomId": room[0]._id,
 				"start": now,
 				"end": hour,
 				"owner": ownerId,
