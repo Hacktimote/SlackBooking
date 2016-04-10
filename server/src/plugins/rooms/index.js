@@ -13,14 +13,11 @@ exports.register = (plugin, options, next) => {
         method: 'POST',
         path: '/api/room',
         config: {
-            // "tags" enable swagger to document API
             tags: ['api'],
             description: 'Save room data',
             notes: 'Save room data',
-            // We use Joi plugin to validate request
             validate: {
                 payload: {
-                    // Both name and age are required fields
                     name: Joi.string().required(),
                     beaconId: Joi.string().required(),
                     location: Joi.string().required(),
@@ -28,18 +25,16 @@ exports.register = (plugin, options, next) => {
                     capacity: Joi.string().required(),
                     status: Joi.object({
                         name: Joi.string().required(),
-                        bookingId: Joi.string().allow('').optional()
+                        bookingId: Joi.string().allow('').optional(),
+                        ownerId: Joi.string().allow('').optional()
                     })
                 }
             }
         },
         handler: function (request, reply) {
 
-            // Create mongodb user object to save it into database
             var room = new RoomModel(request.payload);
 
-            // Call save methods to save data into database
-            // and pass callback methods to handle error
             room.save(function (error) {
                 if (error) {
                     reply({
@@ -65,7 +60,6 @@ exports.register = (plugin, options, next) => {
         },
         path: '/api/rooms',
         handler: (request, reply) => {
-            //Fetch all data from mongodb User Collection
             RoomModel.find({}, function (error, data) {
                 if (error) {
                     reply({
@@ -92,14 +86,12 @@ exports.register = (plugin, options, next) => {
             description: 'Get room by UUID',
             notes: 'Get room by UUID',
             validate: {
-                // Id is required field
                 params: {
                     beaconId: Joi.string().required()
                 }
             }
         },
         handler: (request, reply) => {
-            //Finding user for particular userID
             RoomModel.find({beaconId: request.params.beaconId}, function (error, data) {
                 if (error) {
                     reply({
@@ -134,21 +126,19 @@ exports.register = (plugin, options, next) => {
             description: 'Update status for room',
             notes: 'Update status for room',
             validate: {
-                // Id is required field
                 params: {
                     id: Joi.string().required()
                 },
                 payload: {
-                    // Both name and age are required fields
                     status: Joi.object({
                         name: Joi.string().required(),
-                        bookingId: Joi.string().allow('').optional()
+                        bookingId: Joi.string().allow('').optional(),
+                        ownerId: Joi.string().allow('').optional()
                     })
                 }
             }
         },
         handler: (request, reply) => {
-            //Finding user for particular userID
             console.log(request.payload);
             RoomModel.findOneAndUpdate({_id: request.params.id}, request.payload, function (error, data) {
                 if (error) {
@@ -184,14 +174,12 @@ exports.register = (plugin, options, next) => {
             description: 'Remove room by id',
             notes: 'Remove room by id',
             validate: {
-                // Id is required field
                 params: {
                     id: Joi.string().required()
                 }
             }
         },
         handler: (request, reply) => {
-            //Finding user for particular userID
             RoomModel.findOneAndRemove({_id: request.params.id}, function (error, data) {
                 if (error) {
                     reply({

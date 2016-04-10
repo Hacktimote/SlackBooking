@@ -33,7 +33,6 @@ module.exports = (function() {
 			]
 		};
 
-
         unirest.post('https://hooks.slack.com/services/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')
 		.headers({'Accept': 'application/json', 'Content-Type': 'application/json'})
 		.send(message)
@@ -41,7 +40,7 @@ module.exports = (function() {
 		});
     }
 
-    const postMessageToSlack = function(message) {
+    Slack.postMessageToSlack = function(message) {
 
         unirest.post('https://hooks.slack.com/services/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')
 		.headers({'Accept': 'application/json', 'Content-Type': 'application/json'})
@@ -49,10 +48,11 @@ module.exports = (function() {
 			"text": message
 		})
 		.end(function (response) {
+			return;
 		});
     }
 
-    const postErrorToSlack = function(error) {
+    Slack.postErrorToSlack = function(error) {
 
 
 		const message = {
@@ -64,6 +64,7 @@ module.exports = (function() {
 		.headers({'Accept': 'application/json', 'Content-Type': 'application/json'})
 		.send(message)
 		.end(function (response) {
+			return;
 		});
     }
 
@@ -71,11 +72,13 @@ module.exports = (function() {
 
 			var now = moment().format('YYYY-MM-DD');
 			var hour = moment().add(1, 'h').format('YYYY-MM-DD');
+			let ownerId = 'slack-timote';
 
 			var payload = {
 				"roomId": id,
 				"start": now,
 				"end": hour,
+				"owner": ownerId,
 				"invitees": [
 					"string"
 				]
@@ -83,9 +86,8 @@ module.exports = (function() {
 
             var booking = new BookingModel(payload);
 
-            // Call save methods to save data into database
-            // and pass callback methods to handle error
             booking.save(function (error, response) {
+
                 if (error) {
                     reply({
                         statusCode: 503,
@@ -96,7 +98,8 @@ module.exports = (function() {
 
                     let status = {
                         name: 'Booked',
-                        bookingId: response._id
+                        bookingId: response._id,
+						ownerId: ownerId
                     };
                     let updated = {
                         status: status
@@ -104,9 +107,9 @@ module.exports = (function() {
 
                     RoomModel.findOneAndUpdate({_id: response.roomId}, updated, function (error, data) {
                         if (error) {
-							postErrorToSlack('Failed to book room. Try again later');
+							this.postErrorToSlack('Failed to book room. Try again later');
                         } else {
-							postMessageToSlack('Room Booked');
+							this.postMessageToSlack('Room Booked');
                         }
                     });
                 }
@@ -119,7 +122,7 @@ module.exports = (function() {
 
 		query.exec(function (error, data) {
 			if (error) {
-				postErrorToSlack(error);
+				this.postErrorToSlack(error);
 			} else {
 				bookRoom(data);
 			}
@@ -136,7 +139,7 @@ module.exports = (function() {
 
             query.exec(function (error, data) {
                 if (error) {
-					postErrorToSlack(error);
+					this.postErrorToSlack(error);
                 } else {
 					postListToSlack(data);
 				}

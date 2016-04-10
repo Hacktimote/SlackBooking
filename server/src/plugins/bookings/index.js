@@ -7,6 +7,7 @@ const Joi = require('joi');
 const _ = require('lodash');
 const BookingModel = require('../../models/bookings');
 const RoomModel = require('../../models/rooms');
+const Slack = require('../slack/slack.js');
 
 exports.register = (plugin, options, next) => {
 
@@ -18,28 +19,23 @@ exports.register = (plugin, options, next) => {
         method: 'POST',
         path: '/api/booking',
         config: {
-            // "tags" enable swagger to document API
             tags: ['api'],
             description: 'Save booking data',
             notes: 'Save booking data',
-            // We use Joi plugin to validate request
             validate: {
                 payload: {
-                    // Both name and age are required fields
                     roomId: Joi.string().required(),
                     start: Joi.date().required(),
                     end: Joi.date().required(),
+					owner: Joi.date().required(),
                     invitees: Joi.array().items(Joi.string())
                 }
             }
         },
         handler: function (request, reply) {
-            console.log(request.payload);
-            // Create mongodb user object to save it into database
-            var booking = new BookingModel(request.payload);
 
-            // Call save methods to save data into database
-            // and pass callback methods to handle error
+			let ownerId = request.payload.owner;
+            var booking = new BookingModel(request.payload);
             booking.save(function (error, response) {
                 if (error) {
                     reply({
@@ -51,14 +47,13 @@ exports.register = (plugin, options, next) => {
 
                     const status = {
                         name: 'Booked',
-                        bookingId: response._id
+                        bookingId: response._id,
+						ownerId: ownerId
                     };
                     const updated = {
                         status: status
                     }
 
-                    console.log(updated);
-                    console.log(response.roomId);
                     RoomModel.findOneAndUpdate({_id: response.roomId}, updated, function (error, data) {
                         if (error) {
                             reply({
@@ -66,6 +61,7 @@ exports.register = (plugin, options, next) => {
                                 message: 'Failed to get data',
                             });
                         } else {
+                            Slack.postMessageToSlack('Room has been booked');
                             reply({
                                 statusCode: 200,
                                 message: 'Booking Saved'
@@ -86,7 +82,6 @@ exports.register = (plugin, options, next) => {
         },
         path: '/api/bookings',
         handler: (request, reply) => {
-            //Fetch all data from mongodb User Collection
             BookingModel.find({}, function (error, data) {
                 if (error) {
                     reply({
@@ -113,14 +108,12 @@ exports.register = (plugin, options, next) => {
             description: 'Get booking by Id',
             notes: 'Get booking by Id',
             validate: {
-                // Id is required field
                 params: {
                     id: Joi.string().required()
                 }
             }
         },
         handler: (request, reply) => {
-            //Finding user for particular userID
             BookingModel.find({_id: request.params.id}, function (error, data) {
                 if (error) {
                     reply({
@@ -155,14 +148,12 @@ exports.register = (plugin, options, next) => {
             description: 'Remove booking by id',
             notes: 'Remove booking by id',
             validate: {
-                // Id is required field
                 params: {
                     id: Joi.string().required()
                 }
             }
         },
         handler: (request, reply) => {
-            //Finding user for particular userID
             RoomModel.findOneAndRemove({_id: request.params.id}, function (error, data) {
                 if (error) {
                     reply({
