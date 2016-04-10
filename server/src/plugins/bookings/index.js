@@ -27,7 +27,7 @@ exports.register = (plugin, options, next) => {
                     roomId: Joi.string().required(),
                     start: Joi.date().required(),
                     end: Joi.date().required(),
-					owner: Joi.date().required(),
+					owner: Joi.string().required(),
                     invitees: Joi.array().items(Joi.string())
                 }
             }
