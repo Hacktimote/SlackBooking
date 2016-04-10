@@ -107,9 +107,9 @@ module.exports = (function() {
 
                     RoomModel.findOneAndUpdate({_id: response.roomId}, updated, function (error, data) {
                         if (error) {
-							this.postErrorToSlack('Failed to book room. Try again later');
+							postErrorToSlack('Failed to book room. Try again later');
                         } else {
-							this.postMessageToSlack('Room Booked');
+							postMessageToSlack('Room Booked');
                         }
                     });
                 }
@@ -122,7 +122,7 @@ module.exports = (function() {
 
 		query.exec(function (error, data) {
 			if (error) {
-				this.postErrorToSlack(error);
+				postErrorToSlack(error);
 			} else {
 				bookRoom(data);
 			}
@@ -139,7 +139,7 @@ module.exports = (function() {
 
             query.exec(function (error, data) {
                 if (error) {
-					this.postErrorToSlack(error);
+					postErrorToSlack(error);
                 } else {
 					postListToSlack(data);
 				}
