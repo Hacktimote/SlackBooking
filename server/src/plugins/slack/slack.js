@@ -134,7 +134,6 @@ module.exports = (function() {
 		if(options.text === '') {
 
 			let query = RoomModel.find({'status.name': 'Available'}).
-            limit(5).
             select('name location');
 
             query.exec(function (error, data) {
