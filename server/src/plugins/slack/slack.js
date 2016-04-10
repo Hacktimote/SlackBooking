@@ -5,6 +5,7 @@ const RoomModel = require('../../models/rooms');
 const BookingModel = require('../../models/bookings');
 const _ = require('lodash');
 const moment = require('moment');
+const mongoose = require('mongoose');
 
 module.exports = (function() {
 
