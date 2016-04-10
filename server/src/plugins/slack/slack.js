@@ -69,14 +69,15 @@ module.exports = (function() {
 		});
     }
 
-	const bookRoom = function(id) {
+	const bookRoom = function(room) {
 
 			var now = moment().format('YYYY-MM-DD');
 			var hour = moment().add(1, 'h').format('YYYY-MM-DD');
 			let ownerId = 'slack-timote';
 
+			console.log(room);
 			var payload = {
-				"roomId": id,
+				"roomId": room._id,
 				"start": now,
 				"end": hour,
 				"owner": ownerId,
@@ -105,7 +106,6 @@ module.exports = (function() {
                     let updated = {
                         status: status
                     }
-					console.log(updated);
                     RoomModel.findOneAndUpdate({_id: response.roomId._id}, updated, function (error, data) {
                         if (error) {
 							console.log(error);
@@ -120,8 +120,7 @@ module.exports = (function() {
 	};
 
 	const getRoomId = function(reservation) {
-		let query = RoomModel.find({'location': reservation}).
-		select('_id');
+		let query = RoomModel.find({'location': reservation});
 
 		query.exec(function (error, data) {
 			if (error) {
