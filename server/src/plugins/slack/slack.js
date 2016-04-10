@@ -95,6 +95,7 @@ module.exports = (function() {
                         message: error
                     });
                 } else {
+                    console.log(response);
 
                     let status = {
                         name: 'Booked',
@@ -104,8 +105,8 @@ module.exports = (function() {
                     let updated = {
                         status: status
                     }
-					console.log(response.roomId);
-                    RoomModel.findOneAndUpdate({'_id': response.roomId._id}, updated, function (error, data) {
+					var _id = new mongoose.Types.ObjectId(response.roomId._id);
+                    RoomModel.findOneAndUpdate({_id: _id}, updated, function (error, data) {
                         if (error) {
 							console.log(error);
 							Slack.postErrorToSlack('Failed to book room. Try again later');
