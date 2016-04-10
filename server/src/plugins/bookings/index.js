@@ -35,7 +35,8 @@ exports.register = (plugin, options, next) => {
         handler: function (request, reply) {
 
 			let ownerId = request.payload.owner;
-            var booking = new BookingModel(request.payload);
+            let booking = new BookingModel(request.payload);
+
             booking.save(function (error, response) {
                 if (error) {
                     reply({

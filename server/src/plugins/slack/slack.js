@@ -107,7 +107,7 @@ module.exports = (function() {
                     }
 					console.log(updated);
 					console.log(response.roomId);
-					var _id = mongoose.Types.ObjectId.fromString(roomId);
+					var _id = mongoose.Types.ObjectId.fromString(response.roomId);
                     RoomModel.findOneAndUpdate({_id: _id}, updated, function (error, data) {
                         if (error) {
 							console.log(error);
