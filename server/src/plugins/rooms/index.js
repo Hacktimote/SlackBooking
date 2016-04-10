@@ -139,7 +139,7 @@ exports.register = (plugin, options, next) => {
             }
         },
         handler: (request, reply) => {
-            console.log(request.payload);
+            console.log(request.params.id);
             RoomModel.findOneAndUpdate({_id: request.params.id}, request.payload, function (error, data) {
                 if (error) {
                     reply({
