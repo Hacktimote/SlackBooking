@@ -95,7 +95,6 @@ module.exports = (function() {
                         message: error
                     });
                 } else {
-                    console.log(response);
 
                     let status = {
                         name: 'Booked',
