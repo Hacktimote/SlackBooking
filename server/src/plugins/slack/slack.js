@@ -106,7 +106,8 @@ module.exports = (function() {
                     }
 					console.log(updated);
 					console.log(response.roomId);
-                    RoomModel.findOneAndUpdate({_id: response.roomId}, updated, function (error, data) {
+					var _id = mongoose.Types.ObjectId.fromString(roomId);
+                    RoomModel.findOneAndUpdate({_id: _id}, updated, function (error, data) {
                         if (error) {
 							console.log(error);
 							Slack.postErrorToSlack('Failed to book room. Try again later');
