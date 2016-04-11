@@ -1,0 +1,58 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "com.unarin.cordova.beacon": {
+            "PACKAGE_NAME": "com.slackbooking.app"
+        },
+        "cordova-plugin-console": {
+            "PACKAGE_NAME": "com.slackbooking.app"
+        },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "com.slackbooking.app"
+        },
+        "cordova-plugin-dialogs": {
+            "PACKAGE_NAME": "com.slackbooking.app"
+        },
+        "cordova-plugin-estimote": {
+            "PACKAGE_NAME": "com.slackbooking.app"
+        },
+        "cordova-plugin-hockeyapp": {
+            "PACKAGE_NAME": "com.slackbooking.app"
+        },
+        "cordova-plugin-networkactivityindicator": {
+            "PACKAGE_NAME": "com.slackbooking.app"
+        },
+        "cordova-plugin-splashscreen": {
+            "PACKAGE_NAME": "com.slackbooking.app"
+        },
+        "cordova-plugin-statusbar": {
+            "PACKAGE_NAME": "com.slackbooking.app"
+        },
+        "cordova-plugin-vibration": {
+            "PACKAGE_NAME": "com.slackbooking.app"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.slackbooking.app"
+        },
+        "cordova-plugin-x-toast": {
+            "PACKAGE_NAME": "com.slackbooking.app"
+        },
+        "de.appplant.cordova.plugin.local-notification": {
+            "PACKAGE_NAME": "com.slackbooking.app"
+        },
+        "phonegap-plugin-push": {
+            "PACKAGE_NAME": "com.slackbooking.app"
+        }
+    },
+    "dependent_plugins": {
+        "cordova-plugin-se-transport-security": {
+            "PACKAGE_NAME": "com.slackbooking.app"
+        }
+    }
+}

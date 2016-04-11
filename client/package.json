@@ -1,32 +1,49 @@
 {
-  "name": "SlackBooking",
-  "version": "0.0.1",
-  "license": "MIT",
-  "description": "A mobile application project to book meeting room that use Estimote Beacons and Slack API inside an awesome react-native application",
+  "name": "slackbooking",
+  "version": "0.0.3",
+  "description": "New way of booking a room with Slack and Estimote",
+  "licenses": [
+    {
+      "type": "MIT"
+    }
+  ],
   "private": true,
   "dependencies": {
-    "color": "^0.11.1",
-    "react": "^0.14.7",
-    "react-dom": "^0.14.7",
-    "react-native": "^0.21.0",
-    "react-native-material-kit": "^0.3.0",
-    "react-native-navbar": "^1.2.2",
-    "react-native-router-flux": "^2.1.8"
-  },
-  "scripts": {
-    "start": "node node_modules/react-native/local-cli/cli.js start",
-    "serv": "webpack-dev-server --config ./webpack.config.js --inline --hot --colors --quiet"
+    "angular": "~1.4.8",
+    "angular-animate": "~1.4.8",
+    "angular-sanitize": "~1.4.8",
+    "angular-ui-router": "~0.2.15",
+    "ionic-npm": "^1.0.2",
+    "ng-annotate-webpack-plugin": "^0.1.2",
+    "ng-cordova": "^0.1.24-alpha"
   },
   "devDependencies": {
-    "babel-core": "^6.7.2",
-    "babel-loader": "^6.2.4",
-    "babel-plugin-transform-decorators-legacy": "^1.3.4",
-    "babel-preset-es2015": "^6.6.0",
-    "babel-preset-react": "^6.5.0",
-    "babel-preset-stage-1": "^6.5.0",
-    "image-webpack-loader": "^1.6.3",
+    "css-loader": "^0.23.1",
+    "del": "^2.2.0",
+    "eslint": ">=2.2.0",
+    "eslint-loader": "^1.2.0",
+    "exports-loader": "^0.6.2",
+    "file-loader": "^0.8.5",
+    "gulp": ">=3.9.0",
+    "gulp-load-plugins": "^1.2.0",
+    "gulp-util": "^3.0.7",
+    "html-loader": "^0.4.0",
+    "html-webpack-plugin": "^1.7.0",
+    "json-loader": "^0.5.4",
+    "lodash": ">=4.6.0",
+    "minimist": "^1.2.0",
+    "node-sass": "^3.4.2",
+    "open": "0.0.5",
+    "sass-loader": "^3.1.2",
+    "style-loader": "^0.13.0",
     "url-loader": "^0.5.7",
-    "webpack": "^1.12.14",
-    "webpack-dev-server": "^1.14.1"
+    "webpack": ">=1.12.14",
+    "webpack-dev-server": "^1.14.0",
+    "image-webpack-loader": "^1.6.3"
+  },
+  "scripts": {
+    "build": "gulp build",
+    "git-push": "git push origin master",
+    "git-commit": "git add -A . && git commit -am 'feature update'"
   }
 }

@@ -1,0 +1,59 @@
+<ion-view>
+    <ion-nav-title>
+        {{vm.title}}
+    </ion-nav-title>
+    <ion-nav-buttons side="right">
+        <button class="button button-icon icon ion-ios-gear-outline" ng-click="doSomething()"></button>
+    </ion-nav-buttons>
+    <div class="bar bar-subheader item-input-inset">
+        <div class="row">
+            <div class="col col-66">
+                <label class="item-input-wrapper">
+                    <i class="icon ion-ios-search placeholder-icon"></i>
+                    <input type="search" placeholder="Search">
+                </label>
+            </div>
+            <div class="col">
+                <label class="item item-select">
+                    <select ng-options="item as item.label for item in vm.filter track by item.id" ng-model="vm.filterSelected" ng-change="vm.updateFilter()"></select>
+                </label>
+            </div>
+        </div>
+    </div>
+    <ion-content class="has-subheader"
+                 has-bouncing="true"
+                 padding="true"
+                 scroll="true" style="margin-top: -20px; background-color: rgba(240, 248, 255, 0.6);">
+        <ion-refresher
+                pulling-text="Pull to refresh..."
+                on-refresh="vm.doRefresh()">
+        </ion-refresher>
+        <div class="card" ng-repeat="room in vm.rooms track by room._id" ng-show="room.visible" ng-class="{'booked' : room.booked}">
+            <div class="item item-button-right" style="padding-top: 8px;padding-bottom: 0;">
+                <h2>{{room.name}}</h2>
+                <p>{{room.location}}</p>
+
+                <button class="button button-outline " ng-class="{'button-stable': room.booked, 'button-balanced': !room.booked}" ng-click="vm.book(room)" >
+                    {{room.booked?'Booked':'Book now'}}
+                </button>
+            </div>
+            <div class="item item-thumbnail-left">
+                <img ng-src="{{vm.picture[room.capacityName]}}">
+
+                <h3 ng-show="room.distance != null"><small>Distance: </small> {{room.distance}}m</h3>
+                <h3><small>Capacity: </small> {{room.capacity}}</h3>
+                <span class="label" ng-repeat="label in room.assets">{{label}}</span>
+                <!--<p>Nine Inch Nails</p>-->
+            </div>
+        </div>
+
+        <div class="card" ng-if="!vm.roomAvailabel">
+            <div class="item">
+               <h3>No room found related to your filtering.</h3>
+                <p>select <span class="button-link" ng-click="vm.selectAll()">all</span> to view the status of all {{vm.nbRoom()}} in the building.</p>
+            </div>
+        </div>
+
+    </ion-content>
+
+</ion-view>
