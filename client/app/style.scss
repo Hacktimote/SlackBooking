@@ -1,0 +1,55 @@
+$ionicons-font-path: "../node_modules/ionic-npm/fonts" !default;
+
+@import "variable";
+
+
+
+// include style that may include some global variable.
+@import "../node_modules/ionic-npm/scss/ionic";
+
+
+.ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.button-link {
+  text-decoration: underline !important;
+}
+
+.has-errors {
+  border-bottom: 2px solid $assertive !important;
+}
+
+.no-errors {
+  border-bottom: 2px solid $positive !important;
+}
+
+.no-margin {
+  margin: 0 !important;
+}
+
+.blur {
+  $blur: 5px !default;
+
+  -webkit-filter: blur($blur);
+  -moz-filter: blur($blur);
+  -o-filter: blur($blur);
+  -ms-filter: blur($blur);
+  filter: blur($blur);
+  margin: -$blur; // compensate blur
+}
+
+
+.ellipsis{
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+
+}
+
+.clickable{
+  cursor: pointer;
+}
+

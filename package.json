@@ -1,0 +1,15 @@
+{
+  "name": "slackbooking",
+  "version": "0.0.3",
+  "description": "New way of booking a room with Slack and Estimote",
+  "licenses": [
+    {
+      "type": "MIT"
+    }
+  ],
+  "private": true,
+  "scripts": {
+    "git-push": "git push origin master",
+    "git-commit": "git add -A . && git commit -am 'feature update'"
+  }
+}
