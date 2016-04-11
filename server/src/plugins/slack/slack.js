@@ -111,7 +111,7 @@ module.exports = (function() {
 							Slack.postErrorToSlack('Failed to book room. Try again later');
                         } else {
 							console.log(data);
-							Slack.postMessageToSlack(data.name + ' has been booked. #' + data.location);
+							Slack.postMessageToSlack(data.name + ' has been booked for 1 hour. #' + data.location);
                         }
                     });
                 }
