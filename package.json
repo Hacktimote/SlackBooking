@@ -1,6 +1,6 @@
 {
   "name": "slackbooking",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "New way of booking a room with Slack and Estimote",
   "licenses": [
     {
