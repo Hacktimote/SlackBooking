@@ -62,7 +62,7 @@ exports.register = (plugin, options, next) => {
                                 message: 'Failed to get data',
                             });
                         } else {
-                            Slack.postMessageToSlack('Room has been booked');
+							Slack.postMessageToSlack(data.name + ' has been booked. #' + data.location);
                             reply({
                                 statusCode: 200,
                                 message: 'Booking Saved'

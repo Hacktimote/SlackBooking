@@ -71,11 +71,11 @@ module.exports = (function() {
 
 	const bookRoom = function(room) {
 
+            // This is not right, at all . . . .
 			var now = moment().format('YYYY-MM-DD');
 			var hour = moment().add(1, 'h').format('YYYY-MM-DD');
 			let ownerId = 'slack-timote';
 
-			console.log(room);
 			var payload = {
 				"roomId": room[0]._id,
 				"start": now,
@@ -108,11 +108,10 @@ module.exports = (function() {
                     }
                     RoomModel.findOneAndUpdate({_id: response.roomId}, updated, function (error, data) {
                         if (error) {
-							console.log(error);
 							Slack.postErrorToSlack('Failed to book room. Try again later');
                         } else {
 							console.log(data);
-							Slack.postMessageToSlack('Room Booked');
+							Slack.postMessageToSlack(data.name + ' has been booked. #' + data.location);
                         }
                     });
                 }
