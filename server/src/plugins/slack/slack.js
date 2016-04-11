@@ -18,7 +18,6 @@ module.exports = (function() {
 			roomValue += '#' + rooms[room].location + ' | ' + rooms[room].name + '\n';
 		};
 
-		console.log(roomValue);
 		const message = {
 			"text": "Here is a list of avaialable rooms.",
 			"attachments": [
@@ -96,7 +95,6 @@ module.exports = (function() {
                         message: error
                     });
                 } else {
-                    console.log(response);
 
                     let status = {
                         name: 'Booked',
@@ -110,7 +108,6 @@ module.exports = (function() {
                         if (error) {
 							Slack.postErrorToSlack('Failed to book room. Try again later');
                         } else {
-							console.log(data);
 							Slack.postMessageToSlack(data.name + ' has been booked for 1 hour. #' + data.location);
                         }
                     });
@@ -125,6 +122,7 @@ module.exports = (function() {
 			if (error) {
 				Slack.postErrorToSlack(error);
 			} else {
+                console.log(data);
 				bookRoom(data);
 			}
 		});
