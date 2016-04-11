@@ -122,7 +122,6 @@ module.exports = (function() {
 			if (error) {
 				Slack.postErrorToSlack(error);
 			} else {
-                console.log(data);
 				bookRoom(data);
 			}
 		});
