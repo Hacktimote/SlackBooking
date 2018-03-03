@@ -1,0 +1,37 @@
+{
+  "generator-ngx-rocket": {
+    "version": "4.0.0",
+    "props": {
+      "target": [
+        "cordova"
+      ],
+      "mobile": [
+        "ios",
+        "android"
+      ],
+      "ui": "ionic",
+      "auth": false,
+      "appName": "SlackBooking",
+      "projectName": "slack-booking",
+      "packageManager": "npm"
+    }
+  },
+  "generator-addon-firebase": {
+    "version": "1.1.0",
+    "props": {
+      "firebaseDeploy": false,
+      "appName": "SlackBooking",
+      "projectName": "slack-booking",
+      "packageManager": "npm",
+      "target": [
+        "cordova"
+      ],
+      "mobile": [
+        "ios",
+        "android"
+      ],
+      "ui": "ionic",
+      "auth": false
+    }
+  }
+}

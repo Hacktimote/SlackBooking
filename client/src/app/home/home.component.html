@@ -1,0 +1,39 @@
+<ion-header>
+    <ion-navbar color="primary">
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+      <ion-title><span translate>SlackBooking</span></ion-title>
+    </ion-navbar>
+  
+    <ion-toolbar no-border-top>
+      <ion-segment [(ngModel)]="filter">
+        <ion-segment-button value="all">
+          All
+        </ion-segment-button>
+        <ion-segment-button value="nearBy">
+          Near By
+        </ion-segment-button>
+      </ion-segment>
+    </ion-toolbar>
+  
+  </ion-header>
+  <ion-content>  
+    <div [ngSwitch]="filter">
+      <ion-list *ngSwitchCase="'all'">
+        <app-room  *ngFor="let room of $rooms | async" [room]='room' ></app-room>
+        <ion-card *ngIf="!($rooms | async)?.length">
+             <h3>No room found.</h3>
+        </ion-card>
+      </ion-list>
+    
+      <ion-list *ngSwitchCase="'nearBy'">
+          <app-room  *ngFor="let roomNearBy of $nearBy | async" [room]='roomNearBy' ></app-room>
+          <ion-card *ngIf="!($nearBy | async)?.length">
+            <h3>No room nearby found.</h3>
+            <p>select <span class="button-link" (click)="filter = 'all'">all</span> to view the status of all {{($rooms | async)?.length}} in the building.</p>
+          </ion-card>
+      </ion-list>
+    </div>
+  </ion-content>
+  

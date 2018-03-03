@@ -1,9 +1,0 @@
-npm-debug.log
-/node_modules
-/dist
-/.idea
-*.iml
-/.idea/workspace.xml
-/platforms
-/plugins
-.DS_Store

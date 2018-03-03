@@ -1,0 +1,27 @@
+<ion-card>
+  <ion-item>
+    <ion-thumbnail item-start>
+      <img src="assets/{{room.capacityName}}.png">
+    </ion-thumbnail>
+    <h2>{{room.name}}</h2>
+    <p>{{room.location}}</p>
+    <button ion-button clear item-end>Book Now</button>
+  </ion-item>
+  <ion-list>
+    <ion-item>
+      <ion-icon name="map" item-start></ion-icon>
+      Distance
+      <ion-note item-end>{{room.proximity}}</ion-note>
+    </ion-item>
+    <ion-item>
+      <ion-icon name="contacts" item-start></ion-icon>
+      Capacity
+      <ion-note item-end>{{room.capacity}}</ion-note>
+    </ion-item>
+    <ion-item>
+      <div style="height: 35px;">
+        <ion-badge class="label" *ngFor="let label of room.assets">{{label}}</ion-badge>
+      </div>
+    </ion-item>
+  </ion-list>
+</ion-card>

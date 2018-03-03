@@ -1,0 +1,27 @@
+<ion-split-pane>
+  <ion-menu [content]="content">
+    <ion-header>
+      <ion-toolbar color="primary">
+        <ion-buttons *ngIf="isWeb" end>
+          <button ion-button icon-only (click)="changeLanguage()">
+            <ion-icon name="globe"></ion-icon>
+          </button>
+        </ion-buttons>
+        <ion-title>{{'APP_NAME' | translate}}</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <div ion-fixed>
+        <ion-list>
+          <button menuClose ion-item routerLink="/home" routerLinkActive="active">
+            <span translate>Home</span>
+          </button>
+          <button menuClose ion-item routerLink="/about" routerLinkActive="active">
+            <span translate>About</span>
+          </button>
+        </ion-list>
+      </div>
+    </ion-content>
+  </ion-menu>
+  <ion-nav main [root]="navRoot" #content swipeBackEnabled="false"></ion-nav>
+</ion-split-pane>
