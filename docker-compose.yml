@@ -1,7 +1,7 @@
 version: "2"
 
 networks:
-  slacktimote:
+  slackbooking:
     driver: bridge
 
 services:
@@ -20,11 +20,10 @@ services:
       - SE_PROXY
     volumes:
       - ./server:/project_server
-      - /project_server/node_modules/
     environment:
       - API_PORT
     networks:
-      - slacktimote
+      - slackbooking
     ports:
       - "${API_PORT}:${API_PORT}"
     command: yarn start
@@ -35,7 +34,7 @@ services:
     volumes:
       - ./data:/data/db
     networks:
-      - slacktimote
+      - slackbooking
     environment:
       - MONGO_PORT
     ports:
@@ -56,11 +55,10 @@ services:
       - SE_PROXY
       - API_PORT
     networks:
-      - slacktimote
+      - slackbooking
     ports:
       - "${APP_PORT}:${APP_PORT}"
     volumes:
       - ./client:/project_client
-      - /project_client/node_modules/
-      - /project_client/www/
+      - /project_client/node_modules
     command: yarn ng server --host 0.0.0.0

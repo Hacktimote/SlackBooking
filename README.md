@@ -42,20 +42,44 @@ Then run the commande:
 ```
 ./bash <cmd>
 ```
-#### Run Cordova 
 
-Init cordova app:
+#### Build the client side
+
+Then run the commande:
+```
+./bash yarn build
+```
+
+This will generate the www folder that will be used by cordova.
+
+#### Run Cordova Locally
+
+```
+cd client
+cordova prepare
+cordova run android
+```
+
+
+#### Run Cordova in the container
+
+Use a larger container that include Android SDK
+In `client/Dockerfile`, uncomment the loading of the cordova containe:
+```
+FROM beevelop/cordova
+RUN apt-get update && apt-get install -y git && \
+    rm -rf /var/lib/apt/lists/* && apt-get clean
+```
+
+rebuild the container
+```
+docker-compose down
+docker-compose build
+```
+
+Run cordova commande line through the `./bash` script.
 ```
 ./bash cordova prepare
-```
-
-App Android:
-```
-./bash cordova platform add android
-```
-
-Run on your device:
-```
 ./bash cordova run android
 ```
 
