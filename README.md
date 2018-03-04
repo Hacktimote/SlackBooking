@@ -7,109 +7,58 @@ Meeting room booking system using Estimote Beacons and the Slack API.
 View README files within the 'client' or 'server' directory for running the demos.
 
 
-#Slack booking - Client side
+## Install Docker
 
-## Intro
+Install [Docker](https://www.docker.com/community-edition#/download) on your machine.
 
-The client side of the slack booking app has been developed in Javascript to make the application available on Ios and Android with Cordova.
+**NB:** Make sure to update the db with the right list of rooms.
 
-The application will let you:
+## Development
 
-* See the list of the meeting room near you (Beacons Technology with Estimote)
-* Filter the meeting rooms by availability
-* See information like assets, capacity and distance when available.
-* Book a meeting room and let your colleagues get a slack notification
+Once the docker is up, updating the client file automatically update the browser.
 
-## Libraries
-
-The application has been developed with:
-
-* Angularjs 1.4
-* ionic-sdk
-* webpack
-* gulp
-* cordova plugins
-
-## How to get started
-
-Install [Yarn](https://yarnpkg.com/en/docs/install)
-
-Install Cordova globaly
-
+Start Docker:
 ```
-npm i cordova -g
+docker-compose up
+```
+Stop Docker:
+```
+docker-compose down
 ```
 
-From the app folder, install all dependencies. Use Yarn to install all dependencies. (this will use yarn.lock and make sure the build works...)
+## Build the app
 
+### The client
+The client side need to be built with docker.
+To execute commandes in the docker container
+
+#### Configuration
+Make the bash file executable:
 ```
-yarn install
-```
-
-### Test the app
-
-To test the application on browser
-
-```
-yarn watch
+sudo chmod +x bash
 ```
 
-**NB:** to make sure you won't get a cross-domain issue, webpack is configured with a proxy to redirect all `/api/` calls to the slack booking server side. Just change the line 57 of `gulpfile.js` with your own slackbooking server side.
-
-### Build the app
-
+Then run the commande:
 ```
-yarn build
+./bash <cmd>
+```
+#### Run Cordova 
+
+Init cordova app:
+```
+./bash cordova prepare
 ```
 
-To build for ios:
-
+App Android:
 ```
-cordova platform add ios
-cordova run ios --device
+./bash cordova platform add android
+```
+
+Run on your device:
+```
+./bash cordova run android
 ```
 
 ## Limitation
 
 So far, Only IOS 8 has been used and tested to build the mobile application. Some adjustment needs to be done to adapt Android with the new realise of Cordova 6.
-
-
-
-# Slack booking - Server Side
-
-## Intro
-The server application is the backend of our mobile app. It is the API with which to book and list rooms. It is also the point of messaging to Slack.
-
-The server gives you a set of REST calls to allow for booking rooms, booking through Slack and listing rooms through the api or Slack.
-
-Documentation on the specific call can be found, when running the server, at '/documentation'.
-
-## Libraries
-
-The server has been developed with:
-
-* Hapijs - http://hapijs.com/
-* Mongodb - https://www.mongodb.com/
-* Mongoose - http://mongoosejs.com/
-* Joi - https://github.com/hapijs/joi
-* Unirest - http://unirest.io/nodejs.html
-* hapi-swagger - https://github.com/glennjones/hapi-swagger
-* slack-client - https://github.com/slackhq/node-slack-client
-
-
-## How to get started
-
-Install all the dependecies that the server will use.
-
-	npm install
-
-Start your MongoDB server
-
-	mongod
-
-Start the server
-
-	npm start
-
-
-

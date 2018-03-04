@@ -1,3 +1,4 @@
+
 # Slack booking - Server Side
 
 ## Intro
@@ -20,7 +21,7 @@ The server has been developed with:
 * slack-client - https://github.com/slackhq/node-slack-client
 
 
-## How to get started
+## How to localy start the server (no Docker)
 
 Install all the dependecies that the server will use.
 
@@ -33,6 +34,3 @@ Start your MongoDB server
 Start the server
 
 	npm start
-
-
-

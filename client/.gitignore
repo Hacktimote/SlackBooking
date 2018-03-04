@@ -4,12 +4,14 @@
 /dist
 /tmp
 /out-tsc
+/.npm
+/.config
 
 # Dependencies
 /node_modules
 
 # Cordova
-/www
+/www/*
 /plugins
 /platforms
 

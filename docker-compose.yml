@@ -20,14 +20,13 @@ services:
       - SE_PROXY
     volumes:
       - ./server:/project_server
-      - /project_server/node_modules
+      - /project_server/node_modules/
     environment:
       - API_PORT
     networks:
       - slacktimote
     ports:
       - "${API_PORT}:${API_PORT}"
-    # command: ls -al
     command: yarn start
 
   mongo:
@@ -62,6 +61,6 @@ services:
       - "${APP_PORT}:${APP_PORT}"
     volumes:
       - ./client:/project_client
-      - /project_client/node_modules
-    # command: ls -al
+      - /project_client/node_modules/
+      - /project_client/www/
     command: yarn ng server --host 0.0.0.0
