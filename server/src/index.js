@@ -8,9 +8,13 @@ const HapiSwagger = require('hapi-swagger');
 const Pack = require('../package');
 
 const server = new Hapi.Server();
+
+const PORT = 3000;
+const HOST = '0.0.0.0';
+
 server.connection({
-    port: 3000,
-    host: 'localhost'
+    port: PORT,
+    host: HOST
 });
 
 const swagOptions = {
@@ -18,7 +22,7 @@ const swagOptions = {
         'title': 'Slacktimote API Documentation',
         'version': Pack.version,
     },
-    'host': 'localhost:3000',
+    host: HOST,
     // 'host': 'hacktimote.site',
     tags: [{
             'name': 'rooms',

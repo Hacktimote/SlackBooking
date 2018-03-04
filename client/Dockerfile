@@ -1,6 +1,6 @@
 FROM mhart/alpine-node:8
 
-ENV HOME=/project_server
+ENV HOME=/project_client
 
 RUN mkdir -p $HOME
 

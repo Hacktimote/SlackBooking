@@ -6,7 +6,7 @@
 export const environment = {
   production: false,
   version: '(dev)',
-  serverUrl: '/api',
+  serverUrl: 'http://localhost:3000',
   defaultLanguage: 'en-US',
   supportedLanguages: [
     'en-US',

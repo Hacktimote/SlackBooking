@@ -1,0 +1,67 @@
+version: "2"
+
+networks:
+  slacktimote:
+    driver: bridge
+
+services:
+  server:
+    container_name: ${COMPOSE_PROJECT_NAME}_server
+    build: 
+      context: ./server
+      args:
+        NODE_ENV: "${NODE_ENV}"
+        SE_PROXY: "${SE_PROXY}"
+    env_file:
+      - ./.env
+    ports:
+      - NODE_ENV
+      - API_PORT
+      - SE_PROXY
+    volumes:
+      - ./server:/project_server
+      - /project_server/node_modules
+    environment:
+      - API_PORT
+    networks:
+      - slacktimote
+    ports:
+      - "${API_PORT}:${API_PORT}"
+    # command: ls -al
+    command: yarn start
+
+  mongo:
+    container_name: ${COMPOSE_PROJECT_NAME}_mongo
+    image: mongo
+    volumes:
+      - ./data:/data/db
+    networks:
+      - slacktimote
+    environment:
+      - MONGO_PORT
+    ports:
+      - "${MONGO_PORT}:${MONGO_PORT}"
+
+  client:
+    container_name: ${COMPOSE_PROJECT_NAME}_client
+    build: 
+      context: ./client
+      args:
+        NODE_ENV: "${NODE_ENV}"
+        SE_PROXY: "${SE_PROXY}"
+    env_file:
+      - ./.env
+    environment:
+      - NODE_ENV
+      - APP_PORT
+      - SE_PROXY
+      - API_PORT
+    networks:
+      - slacktimote
+    ports:
+      - "${APP_PORT}:${APP_PORT}"
+    volumes:
+      - ./client:/project_client
+      - /project_client/node_modules
+    # command: ls -al
+    command: yarn ng server --host 0.0.0.0
