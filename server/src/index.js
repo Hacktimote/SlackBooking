@@ -15,13 +15,12 @@ server.connection({
 
 const swagOptions = {
     info: {
-            'title': 'Slacktimote API Documentation',
-            'version': Pack.version,
+        'title': 'Slacktimote API Documentation',
+        'version': Pack.version,
     },
-    // 'host': 'localhost:3000',
-    'host': 'hacktimote.site',
-    tags: [
-        {
+    'host': 'localhost:3000',
+    // 'host': 'hacktimote.site',
+    tags: [{
             'name': 'rooms',
             'description': 'Room API calls'
         },
@@ -34,11 +33,22 @@ const swagOptions = {
             'description': 'Slack API calls'
         }
     ]
-    };
+};
 
 const mongoose = require('mongoose');
 // mongoose.connect('mongodb://localhost:4321/slacktimote');
-mongoose.connect('mongodb://localhost:27017/slacktimote');
+
+const options = {
+    useMongoClient: true,
+    autoIndex: false, // Don't build indexes
+    reconnectTries: Number.MAX_VALUE, // Never stop trying to reconnect
+    reconnectInterval: 500, // Reconnect every 500ms
+    poolSize: 10, // Maintain up to 10 socket connections
+    // If not connected, return errors immediately rather than waiting for reconnect
+    bufferMaxEntries: 0
+};
+
+mongoose.connect('mongodb://localhost:27017/slacktimote', options);
 
 const RoomModel = require('./plugins/rooms');
 const BookingModel = require('./plugins/bookings');
@@ -77,11 +87,11 @@ server.register([
     }
 ], (err) => {
 
-    if(err) {
+    if (err) {
         console.log(err);
     }
     server.start((err) => {
-        if(err) {
+        if (err) {
             console.log(err);
         }
         server.log('Server running at: ', server.info.uri);

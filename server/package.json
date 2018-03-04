@@ -1,46 +1,45 @@
 {
-  "name": "slackbooking-server",
-  "version": "0.0.1",
-  "description": "Server side of Slack Booking",
-  "main": "index.js",
-  "scripts": {
-    "dev": "node ./src/index.js",
-    "start": "forever start ./src/index.js",
-    "stop": "forever stop ./src/index.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/R0muald/SlackBooking.git"
-  },
-  "keywords": [
-    "slack",
-    "estimote",
-    "beacon",
-    "booking"
-  ],
-  "author": "d0nkeyBOB",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/R0muald/SlackBooking/issues"
-  },
-  "homepage": "https://github.com/R0muald/SlackBooking#readme",
-  "dependencies": {
-    "bluebird": "^3.3.4",
-    "boom": "^3.1.2",
-    "forever": "^0.15.3",
-    "good": "^6.6.0",
-    "good-console": "^5.3.1",
-    "hapi": "^13.2.2",
-    "hapi-swagger": "^4.3.1",
-    "inert": "^3.2.0",
-    "joi": "^8.0.5",
-    "lodash": "^4.7.0",
-    "moment": "latest",
-    "mongoose": "^4.4.10",
-    "node-uuid": "^1.4.7",
-    "slack-client": "^2.0.4",
-    "unirest": "^0.4.2",
-    "vision": "^4.0.1"
-  },
-  "devDependencies": {}
+    "name": "slackbooking-server",
+    "version": "0.0.1",
+    "description": "Server side of Slack Booking",
+    "main": "index.js",
+    "scripts": {
+        "dev": "node ./src/index.js",
+        "start": "forever start ./src/index.js",
+        "stop": "forever stop ./src/index.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/R0muald/SlackBooking.git"
+    },
+    "keywords": [
+        "slack",
+        "estimote",
+        "beacon",
+        "booking"
+    ],
+    "author": "d0nkeyBOB",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/R0muald/SlackBooking/issues"
+    },
+    "homepage": "https://github.com/R0muald/SlackBooking#readme",
+    "dependencies": {
+        "bluebird": "^3.5.1",
+        "boom": "^3.2.2",
+        "good": "^6.6.3",
+        "good-console": "^5.3.2",
+        "hapi": "^13.5.3",
+        "hapi-swagger": "^4.3.1",
+        "inert": "^3.2.1",
+        "joi": "^8.4.2",
+        "lodash": "^4.17.5",
+        "moment": "^2.21.0",
+        "mongoose": "^4.13.11",
+        "node-uuid": "^1.4.7",
+        "slack-client": "^2.0.6",
+        "unirest": "^0.4.2",
+        "vision": "^4.1.1"
+    },
+    "devDependencies": {}
 }

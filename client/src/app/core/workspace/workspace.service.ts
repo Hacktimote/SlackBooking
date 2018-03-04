@@ -26,6 +26,7 @@ export interface IRoom {
   capacity: string;
   status: any;
   capacityName?: string;
+  proximity?: string;
 }
 
 export interface IBooking {
