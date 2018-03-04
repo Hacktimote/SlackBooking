@@ -21,6 +21,7 @@ Start Docker:
 ```
 docker-compose up
 ```
+
 Stop Docker:
 ```
 docker-compose down
@@ -64,12 +65,7 @@ cordova run android
 #### Run Cordova in the container
 
 Use a larger container that include Android SDK
-In `client/Dockerfile`, uncomment the loading of the cordova containe:
-```
-FROM beevelop/cordova
-RUN apt-get update && apt-get install -y git && \
-    rm -rf /var/lib/apt/lists/* && apt-get clean
-```
+In `client/Dockerfile`, uncomment the section 1 and remove the section 2.
 
 rebuild the container
 ```
