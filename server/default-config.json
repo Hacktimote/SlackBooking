@@ -1,0 +1,7 @@
+{
+    "dbSettings": {
+        "host": "localhost",
+        "db": "slacktimote",
+        "port": 27017
+    }
+}

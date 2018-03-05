@@ -5,7 +5,8 @@
     "main": "./src/index.js",
     "scripts": {
         "dev": "node ./src/index.js",
-        "start": "node ./src/index.js"
+        "start": "node ./src/index.js",
+        "migrate": "node ./node_modules/mongodb-migrate -runmm -dbn dbSettings up"
     },
     "repository": {
         "type": "git",
@@ -41,5 +42,7 @@
         "unirest": "^0.4.2",
         "vision": "^4.1.1"
     },
-    "devDependencies": {}
+    "devDependencies": {
+        "mongodb-migrate": "^2.0.2"
+    }
 }

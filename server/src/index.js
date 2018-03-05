@@ -10,7 +10,7 @@ const Pack = require('../package');
 const server = new Hapi.Server();
 
 const PORT = 3000;
-const HOST = '0.0.0.0';
+const HOST = 'localhost';
 
 server.connection({
     port: PORT,
@@ -22,7 +22,7 @@ const swagOptions = {
         'title': 'Slacktimote API Documentation',
         'version': Pack.version,
     },
-    host: HOST,
+    host: "localhost:3000",
     // 'host': 'hacktimote.site',
     tags: [{
             'name': 'rooms',
