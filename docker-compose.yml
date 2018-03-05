@@ -26,7 +26,7 @@ services:
       - slackbooking
     ports:
       - "${API_PORT}:${API_PORT}"
-    command: yarn start
+    command: yarn migrate:start
 
   mongo:
     container_name: ${COMPOSE_PROJECT_NAME}_mongo

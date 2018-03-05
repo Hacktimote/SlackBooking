@@ -6,6 +6,7 @@
     "scripts": {
         "dev": "node ./src/index.js",
         "start": "node ./src/index.js",
+        "migrate:start": "yarn migrate && yarn start",
         "migrate": "node ./node_modules/mongodb-migrate -runmm -dbn dbSettings up"
     },
     "repository": {
